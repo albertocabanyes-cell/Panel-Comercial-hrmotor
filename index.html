@@ -3,679 +3,492 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="light dark" />
   <title>Panel Comercial</title>
 
   <style>
     :root{
-      --navy-950:#060B18;
-      --navy-900:#0A1230;
-      --navy-800:#0F1C3F;
+      /* Look & feel tipo Salesforce/HRmotor (según tu captura) */
+      --navy: #0B1D4A;            /* barra principal */
+      --navy-2:#08163A;           /* hover/active */
+      --bg:   #F4F6F9;            /* fondo app */
+      --card: #FFFFFF;            /* tarjetas */
+      --line: #D9DEE7;            /* bordes suaves */
+      --text: #1F2A44;            /* texto principal */
+      --muted:#6B7280;            /* texto secundario */
+      --link: #1B96FF;            /* azul tipo SF */
+      --danger:#B91C1C;           /* rojo elegante */
+      --shadow: 0 2px 10px rgba(16,24,40,.08);
+      --radius: 10px;
 
-      --red-700:#7A0F1B;
-      --red-600:#9B1220;
-
-      --glass-1: rgba(255,255,255,.11);
-      --glass-2: rgba(255,255,255,.08);
-      --glass-3: rgba(255,255,255,.06);
-      --line: rgba(255,255,255,.14);
-
-      --shadow: 0 22px 60px rgba(0,0,0,.38);
-      --shadow-soft: 0 14px 38px rgba(0,0,0,.28);
-
-      --radius-xl: 24px;
-      --radius-lg: 18px;
-
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
     }
 
-    *{ box-sizing: border-box; }
-    html, body{ height:100%; }
+    *{ box-sizing:border-box; }
     body{
       margin:0;
-      color: rgba(255,255,255,.92);
-      background:
-        radial-gradient(1200px 820px at 16% 10%, rgba(72,130,255,.30), transparent 58%),
-        radial-gradient(1100px 760px at 82% 0%, rgba(155,18,32,.22), transparent 56%),
-        radial-gradient(980px 780px at 70% 82%, rgba(0,255,209,.10), transparent 58%),
-        linear-gradient(180deg, var(--navy-950), var(--navy-900) 40%, var(--navy-800));
-      overflow-x:hidden;
+      background: var(--bg);
+      color: var(--text);
     }
 
-    body::before{
-      content:"";
-      position:fixed;
-      inset:-2px;
-      pointer-events:none;
-      background:
-        linear-gradient(120deg,
-          transparent 0%,
-          rgba(255,255,255,.06) 18%,
-          transparent 36%,
-          rgba(255,255,255,.05) 52%,
-          transparent 70%,
-          rgba(255,255,255,.04) 86%,
-          transparent 100%);
-      mix-blend-mode: overlay;
-      opacity:.55;
+    /* ===== Top header blanco (logo + búsqueda + usuario) ===== */
+    .topbar{
+      background: #fff;
+      border-bottom: 1px solid var(--line);
     }
-
-    .page{
-      width: min(1200px, calc(100% - 32px));
-      margin: 18px auto 26px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Header */
-    .header{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:14px;
-      padding: 14px 14px 10px;
-    }
-    .brand{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-    }
-    .logoMark{
-      width:44px; height:44px;
-      border-radius: 16px;
-      background:
-        radial-gradient(16px 16px at 30% 28%, rgba(72,130,255,.55), transparent 60%),
-        radial-gradient(18px 18px at 72% 30%, rgba(155,18,32,.40), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06));
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(8px);
+    .topbar-inner{
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 14px 16px;
       display:grid;
-      place-items:center;
-      flex: 0 0 auto;
-    }
-    .title h1{
-      margin:0;
-      font-size: 18px;
-      letter-spacing: .2px;
-      font-weight: 780;
-      line-height: 1.15;
-    }
-    .title p{
-      margin: 6px 0 0;
-      font-size: 13px;
-      color: rgba(255,255,255,.72);
-      line-height: 1.3;
+      grid-template-columns: 1fr auto 1fr;
+      align-items:center;
+      gap: 12px;
     }
 
-    .headerRight{
+    .logo{
       display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .logo img{
+      height: 44px;
+      width: auto;
+      display:block;
+    }
+
+    .global-search{
+      display:flex;
+      align-items:center;
       gap:10px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px 12px;
+      box-shadow: 0 1px 0 rgba(16,24,40,.02);
+    }
+    .global-search svg{ flex: 0 0 auto; opacity:.7; }
+    .global-search input{
+      width:100%;
+      border:0;
+      outline:0;
+      font-size: 13px;
+      color: var(--text);
+    }
+    .global-search input::placeholder{ color: #9AA3B2; }
+
+    .userbox{
+      display:flex;
       align-items:center;
       justify-content:flex-end;
-      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      white-space:nowrap;
     }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 9px 12px;
+    .avatar{
+      width: 30px;
+      height: 30px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: var(--glass-3);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 28px rgba(0,0,0,.20);
+      border: 1px solid var(--line);
+      background: #EEF2FF;
+      display:grid;
+      place-items:center;
+      color: #243B7A;
+      font-weight: 700;
       font-size: 12px;
-      color: rgba(255,255,255,.78);
-      white-space: nowrap;
     }
-    .dot{
-      width:8px; height:8px;
-      border-radius: 999px;
-      background: rgba(72,130,255,.95);
-      box-shadow: 0 0 0 4px rgba(72,130,255,.15);
-    }
-    .dot.red{
-      background: rgba(155,18,32,.95);
-      box-shadow: 0 0 0 4px rgba(155,18,32,.14);
+    .userbox .caret{
+      width:0;height:0;
+      border-left:5px solid transparent;
+      border-right:5px solid transparent;
+      border-top:6px solid #8A94A6;
+      margin-left: 2px;
     }
 
-    /* Layout */
-    .layout{
+    /* ===== Navbar azul marino ===== */
+    .navbar{
+      background: var(--navy);
+    }
+    .navbar-inner{
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 8px;
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      overflow:auto;
+    }
+    .nav-item{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      padding: 12px 12px;
+      color: rgba(255,255,255,.92);
+      text-decoration:none;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 6px;
+      white-space:nowrap;
+    }
+    .nav-item:hover{ background: var(--navy-2); }
+    .nav-item svg{ opacity:.95; }
+
+    /* ===== Layout principal ===== */
+    .wrap{
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 16px;
       display:grid;
-      grid-template-columns: 1.8fr 1fr;
+      grid-template-columns: 1.75fr 1fr;
       gap: 14px;
       align-items:start;
     }
-    @media (max-width: 980px){
-      .layout{ grid-template-columns: 1fr; }
-      .header{ flex-direction: column; }
-      .headerRight{ justify-content:flex-start; }
+
+    @media (max-width: 1000px){
+      .topbar-inner{ grid-template-columns: 1fr; }
+      .logo{ justify-content:flex-start; }
+      .userbox{ justify-content:flex-start; }
+      .wrap{ grid-template-columns: 1fr; }
     }
 
-    /* Cards */
     .card{
-      border-radius: var(--radius-xl);
+      background: var(--card);
       border: 1px solid var(--line);
-      background: linear-gradient(180deg, var(--glass-1), var(--glass-2));
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
       overflow:hidden;
     }
-    .cardInner{ padding: 14px; }
-
-    .cardHead{
-      padding: 14px 14px 10px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-    }
-    .cardHead h2{
-      margin:0;
-      font-size: 13px;
-      font-weight: 820;
-      letter-spacing: .28px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.80);
-    }
-
-    /* Tools header row (SIN buscador) */
-    .toolsHeadRow{
+    .card-h{
+      padding: 12px 12px;
+      border-bottom: 1px solid var(--line);
       display:flex;
-      align-items:flex-end;
+      align-items:center;
       justify-content:space-between;
       gap: 10px;
-      flex-wrap: wrap;
     }
-    .toolsHint{
-      margin-top: 6px;
-      font-size: 12.5px;
-      color: rgba(255,255,255,.66);
-    }
-
-    /* Chips (filtros visuales) */
-    .chipRow{
-      display:flex;
-      gap:8px;
-      flex-wrap: wrap;
-      align-items:center;
-      justify-content:flex-end;
-    }
-    .chip{
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(6,11,24,.35);
-      color: rgba(255,255,255,.80);
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      cursor:pointer;
-      user-select:none;
-      transition: transform .10s ease, border-color .10s ease, background .10s ease;
-      backdrop-filter: blur(10px);
-    }
-    .chip:hover{ transform: translateY(-1px); border-color: rgba(72,130,255,.34); }
-    .chip.active{
-      border-color: rgba(155,18,32,.45);
-      background: rgba(155,18,32,.14);
-    }
-
-    /* Tool tiles */
-    .pinnedRow{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 12px;
-      margin-bottom: 6px;
-    }
-
-    .toolGroup{ margin-top: 12px; }
-    .toolGroupTitle{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 10px;
-      margin: 16px 2px 10px;
-    }
-    .toolGroupTitle .left{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      min-width:0;
-    }
-    .groupBadge{
-      width:10px; height:10px;
-      border-radius: 999px;
-      background: rgba(72,130,255,.95);
-      box-shadow: 0 0 0 4px rgba(72,130,255,.10);
-      flex: 0 0 auto;
-    }
-    .groupBadge.red{
-      background: rgba(155,18,32,.95);
-      box-shadow: 0 0 0 4px rgba(155,18,32,.10);
-    }
-    .toolGroupTitle span{
+    .card-h .title{
+      font-size: 14px;
       font-weight: 800;
-      font-size: 13px;
-      color: rgba(255,255,255,.86);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      letter-spacing: .2px;
     }
-    .toolGroupTitle em{
-      font-style: normal;
-      font-size: 12px;
-      color: rgba(255,255,255,.60);
-      white-space: nowrap;
-    }
+    .card-b{ padding: 12px; }
 
-    .toolGrid{
+    /* ===== Herramientas: prioridad visual ===== */
+    .tools-grid{
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 10px;
     }
 
     .tool{
-      text-decoration:none;
-      color:inherit;
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(255,255,255,.14);
-      background:
-        radial-gradient(22px 22px at 22% 18%, rgba(72,130,255,.25), transparent 62%),
-        radial-gradient(26px 26px at 74% 20%, rgba(155,18,32,.20), transparent 62%),
-        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      box-shadow: 0 14px 34px rgba(0,0,0,.22);
-      backdrop-filter: blur(12px);
-      padding: 12px;
       display:flex;
       gap: 12px;
-      align-items:flex-start;
-      transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
-      position: relative;
-      overflow:hidden;
+      align-items:center;
+      padding: 12px;
+      border: 1px solid #E6EAF2;
+      border-radius: 10px;
+      text-decoration:none;
+      color: var(--text);
+      background: #fff;
+      transition: transform .08s ease, box-shadow .08s ease, border-color .08s ease;
     }
     .tool:hover{
-      transform: translateY(-2px);
-      border-color: rgba(72,130,255,.26);
-      box-shadow: 0 20px 46px rgba(0,0,0,.28);
+      transform: translateY(-1px);
+      border-color: #CAD3E3;
+      box-shadow: 0 6px 18px rgba(16,24,40,.10);
     }
 
-    .iconBox{
-      width: 50px;
-      height: 50px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.16);
-      background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.06));
-      box-shadow: 0 10px 22px rgba(0,0,0,.22);
+    .tool-ico{
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+      background: #F2F5FB;
       display:grid;
       place-items:center;
       overflow:hidden;
       flex: 0 0 auto;
     }
-    .iconBox img{
-      width: 32px;
-      height: 32px;
+    .tool-ico img{
+      width: 26px;
+      height: 26px;
       object-fit: contain;
       display:block;
-      filter: drop-shadow(0 6px 12px rgba(0,0,0,.18));
+    }
+    .tool-ico .fallback{
+      font-weight: 900;
+      color: #243B7A;
+      font-size: 13px;
     }
 
-    .toolText{ min-width:0; }
-    .toolName{
-      margin: 0;
-      font-size: 14.5px;
-      font-weight: 820;
+    .tool-txt{ min-width:0; }
+    .tool-name{
+      font-weight: 800;
+      font-size: 14px;
       line-height: 1.15;
-      letter-spacing: .1px;
+      margin: 0;
     }
-    .toolDesc{
-      margin: 6px 0 0;
-      font-size: 12.6px;
-      color: rgba(255,255,255,.68);
-      line-height: 1.3;
+    .tool-desc{
+      margin: 3px 0 0;
+      font-size: 12.5px;
+      color: var(--muted);
       overflow:hidden;
-      display:-webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
+      text-overflow:ellipsis;
+      white-space:nowrap;
     }
-    .toolMeta{
-      margin-top: 10px;
+
+    /* Badges / grupos */
+    .tool-meta{
+      margin-top: 6px;
+      display:flex;
+      gap: 6px;
+      flex-wrap:wrap;
+    }
+    .tag{
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid #E4E9F3;
+      background: #F7F9FD;
+      color: #334155;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+    .tag.red{
+      border-color: rgba(185,28,28,.25);
+      background: rgba(185,28,28,.08);
+      color: var(--danger);
+    }
+
+    /* ===== Sidebar: estilo “lista relacionada” ===== */
+    .cta{
+      width: 100%;
+      background: #0B0B0B;
+      color: #fff;
+      border: 0;
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-weight: 800;
+      cursor:pointer;
+      margin-bottom: 12px;
+    }
+    .cta:hover{ opacity:.92; }
+
+    .feed{
+      display:grid;
+      gap: 10px;
+    }
+
+    .feed-item{
+      border: 1px solid #E6EAF2;
+      border-radius: 10px;
+      padding: 10px;
+      background:#fff;
+    }
+    .feed-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .feed-title{
+      font-weight: 850;
+      font-size: 13px;
+      margin: 0;
+      line-height: 1.2;
+    }
+    .feed-date{
+      font-size: 12px;
+      color: #8A94A6;
+      white-space:nowrap;
+    }
+    .feed-text{
+      margin: 6px 0 0;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+    .feed-actions{
+      margin-top: 8px;
       display:flex;
       gap: 8px;
       flex-wrap:wrap;
-      align-items:center;
-    }
-    .miniTag{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding: 6px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(6,11,24,.28);
-      font-size: 11.5px;
-      color: rgba(255,255,255,.74);
-      max-width: 100%;
-    }
-    .miniTag strong{
-      font-weight: 760;
-      color: rgba(255,255,255,.84);
-    }
-    .miniTag.red{
-      border-color: rgba(155,18,32,.28);
-      background: rgba(155,18,32,.14);
-    }
-
-    /* Feed */
-    .feed{ display:grid; gap: 10px; }
-    .item{
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.07);
-      box-shadow: 0 12px 28px rgba(0,0,0,.22);
-      overflow:hidden;
-    }
-    .itemHead{
-      display:flex;
-      justify-content:space-between;
-      gap: 12px;
-      padding: 12px 12px 10px;
-    }
-    .itemTitle{
-      margin:0;
-      font-size: 13.5px;
-      font-weight: 820;
-      line-height:1.2;
-      color: rgba(255,255,255,.90);
-    }
-    .itemDate{
-      font-size: 12px;
-      color: rgba(255,255,255,.62);
-      white-space:nowrap;
-    }
-    .itemBody{
-      padding: 0 12px 12px;
-      margin:0;
-      font-size: 12.8px;
-      color: rgba(255,255,255,.74);
-      line-height: 1.35;
-    }
-    .actions{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding: 0 12px 12px;
     }
     .btn{
       display:inline-flex;
       align-items:center;
       gap: 8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(6,11,24,.35);
+      border: 1px solid #E4E9F3;
+      background:#fff;
+      color: var(--text);
       text-decoration:none;
-      color: rgba(255,255,255,.88);
+      font-weight: 700;
       font-size: 12px;
-      transition: transform .10s ease, border-color .10s ease;
-      backdrop-filter: blur(10px);
+      padding: 7px 10px;
+      border-radius: 999px;
     }
-    .btn:hover{ transform: translateY(-1px); border-color: rgba(72,130,255,.28); }
-    .btn.red:hover{ border-color: rgba(155,18,32,.34); }
+    .btn:hover{ border-color:#CAD3E3; }
+    .btn.red{
+      border-color: rgba(185,28,28,.25);
+      background: rgba(185,28,28,.06);
+      color: var(--danger);
+    }
 
-    details{
-      margin: 0 12px 12px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      padding-top: 10px;
-    }
-    details summary{
-      cursor:pointer;
-      font-size: 12px;
-      color: rgba(255,255,255,.72);
-    }
-    .preview{
+    .muted-note{
       margin-top: 10px;
-      border-radius: 16px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-    }
-    .preview img{ width:100%; display:block; }
-    .preview embed{ width:100%; height: 520px; border:0; display:block; background: rgba(255,255,255,.06); }
-
-    .footer{
-      margin-top: 14px;
-      padding: 0 14px 12px;
-      color: rgba(255,255,255,.68);
+      color: #8A94A6;
       font-size: 12px;
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      *{ transition:none !important; animation:none !important; }
     }
   </style>
 </head>
 
 <body>
-  <div class="page">
-
-    <div class="header">
-      <div class="brand">
-        <div class="logoMark" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M7 12.2l3 3L17.5 7.7" stroke="white" stroke-opacity=".9" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-
-        <div class="title">
-          <h1>Panel Comercial</h1>
-          <p>Accesos directos y comunicados internos · Interfaz tipo launcher (visual, rápida y actualizable)</p>
-        </div>
+  <!-- Header blanco -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <!-- Búsqueda global (estética SF) -->
+      <div class="global-search" aria-label="Búsqueda global">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
+          <path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input type="search" placeholder="Search…" />
       </div>
 
-      <div class="headerRight">
-        <span class="pill"><span class="dot"></span> Favoritos arriba</span>
-        <span class="pill"><span class="dot red"></span> Avisos/urgencias en rojo</span>
+      <!-- Logo centrado -->
+      <div class="logo">
+        <img src="assets/brand/hrmotor-logo.png" alt="HRmotor" />
+      </div>
+
+      <!-- Usuario derecha -->
+      <div class="userbox">
+        <div class="avatar" title="Usuario">JA</div>
+        <div>josealberto.pin</div>
+        <div class="caret" aria-hidden="true"></div>
       </div>
     </div>
+  </header>
 
-    <div class="layout">
+  <!-- Barra azul marino -->
+  <nav class="navbar" aria-label="Navegación">
+    <div class="navbar-inner">
+      <a class="nav-item" href="#" onclick="return false;">
+        <!-- home icon -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z"
+                stroke="white" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a class="nav-item" href="#" onclick="return false;">Leads</a>
+      <a class="nav-item" href="#" onclick="return false;">Vehículos</a>
+      <a class="nav-item" href="#" onclick="return false;">Tasación</a>
+      <a class="nav-item" href="#" onclick="return false;">Casos</a>
+      <a class="nav-item" href="#" onclick="return false;">Informes</a>
+      <a class="nav-item" href="#" onclick="return false;">Tareas Departamento Informático</a>
+    </div>
+  </nav>
 
-      <!-- Herramientas -->
-      <section class="card" aria-label="Herramientas">
-        <div class="cardHead">
-          <div class="toolsHeadRow">
-            <div>
-              <h2>Herramientas</h2>
-              <div class="toolsHint">Haz clic para abrir (se abre en nueva pestaña). Filtra por categoría si lo necesitas.</div>
-            </div>
-            <div class="chipRow" id="groupChips"></div>
-          </div>
+  <!-- Layout -->
+  <main class="wrap">
+
+    <!-- Columna izquierda: Herramientas -->
+    <section class="card" aria-label="Herramientas">
+      <div class="card-h">
+        <div class="title">Herramientas</div>
+        <div style="color:var(--muted); font-size:12px; font-weight:700;">Accesos directos</div>
+      </div>
+      <div class="card-b">
+        <div id="tools" class="tools-grid"></div>
+        <div class="muted-note">
+          Nota: los accesos se abren en una nueva pestaña para evitar bloqueos por iframes (SharePoint/SSO).
         </div>
+      </div>
+    </section>
 
-        <div class="cardInner">
-          <div id="pinnedTools" class="pinnedRow" style="display:none;"></div>
-          <div id="tools"></div>
+    <!-- Columna derecha: Comunicados + Noticias -->
+    <aside>
+      <button class="cta" type="button" onclick="alert('Acción a definir: aquí podrías enlazar a Salesforce/crear tarea');">
+        Crear tarea
+      </button>
+
+      <section class="card" aria-label="Comunicados">
+        <div class="card-h">
+          <div class="title">Comunicados</div>
+          <div id="commCount" style="color:var(--muted); font-size:12px; font-weight:700;">—</div>
+        </div>
+        <div class="card-b">
+          <div id="comunicados" class="feed"></div>
         </div>
       </section>
 
-      <!-- Comunicados / Noticias -->
-      <aside class="card" aria-label="Comunicados y noticias">
-        <div class="cardHead" style="display:flex;justify-content:space-between;align-items:center;">
-          <h2>Comunicados</h2>
-          <small id="commCount" style="color:rgba(255,255,255,.62);font-size:12px;">—</small>
-        </div>
-        <div class="cardInner">
-          <div id="comunicados" class="feed"></div>
-        </div>
+      <div style="height:12px;"></div>
 
-        <div class="cardHead" style="display:flex;justify-content:space-between;align-items:center;">
-          <h2>Noticias</h2>
-          <small id="newsCount" style="color:rgba(255,255,255,.62);font-size:12px;">—</small>
+      <section class="card" aria-label="Noticias">
+        <div class="card-h">
+          <div class="title">Noticias</div>
+          <div id="newsCount" style="color:var(--muted); font-size:12px; font-weight:700;">—</div>
         </div>
-        <div class="cardInner">
+        <div class="card-b">
           <div id="noticias" class="feed"></div>
         </div>
-      </aside>
+      </section>
+    </aside>
 
-    </div>
+  </main>
 
-    <div class="footer">
-      Consejo operativo: sube iconos / PDFs / imágenes al repo para que todo cargue bien dentro de Salesforce. Luego solo editas <strong>content.js</strong>.
-    </div>
-  </div>
-
-  <script src="content.js"></script>
+  <!-- Importante: tu content.js debe definir window.TOOLS / window.COMUNICADOS / window.NOTICIAS -->
+  <script src="content.js?v=1"></script>
 
   <script>
-    const FALLBACK_ICON = `data:image/svg+xml;utf8,
-      <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'>
-        <defs>
-          <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
-            <stop offset='0' stop-color='%234882FF' stop-opacity='.35'/>
-            <stop offset='0.55' stop-color='%23FFFFFF' stop-opacity='.0'/>
-            <stop offset='1' stop-color='%239B1220' stop-opacity='.25'/>
-          </linearGradient>
-        </defs>
-        <rect width='64' height='64' rx='16' fill='rgba(255,255,255,0.10)'/>
-        <rect x='8' y='8' width='48' height='48' rx='14' fill='url(%23g)'/>
-        <path d='M22 32h20' stroke='white' stroke-opacity='.8' stroke-width='3' stroke-linecap='round'/>
-        <path d='M22 24h12' stroke='white' stroke-opacity='.65' stroke-width='3' stroke-linecap='round'/>
-        <path d='M22 40h16' stroke='white' stroke-opacity='.65' stroke-width='3' stroke-linecap='round'/>
-      </svg>`;
+    // Fallback icon (si aún no has subido iconos)
+    const FALLBACK = (name) => (name || 'H').trim().slice(0,2).toUpperCase();
 
-    const safe = (v) => (v ?? '').toString();
-    const norm = (s) => safe(s).trim().toLowerCase();
-    const byName = (a,b) => safe(a).localeCompare(safe(b), 'es', { sensitivity:'base' });
-
-    const toolsRoot = document.getElementById('tools');
-    const pinnedRoot = document.getElementById('pinnedTools');
-    const chipsEl = document.getElementById('groupChips');
-
-    let activeGroup = 'Todos';
-
-    function groupTools(list){
-      return list.reduce((acc, t) => {
-        const g = safe(t.group || 'General').trim();
-        (acc[g] ||= []).push(t);
-        return acc;
-      }, {});
-    }
-
-    function pickGroupBadge(groupName){
-      const g = norm(groupName);
-      const red = ['urg', 'rrhh', 'legal', 'incid', 'prior'].some(k => g.includes(k));
-      return red ? 'groupBadge red' : 'groupBadge';
-    }
-
-    function toolCard(t){
-      const a = document.createElement('a');
-      a.className = 'tool';
-      a.href = t.url || '#';
-      a.target = '_blank';
-      a.rel = 'noopener';
-
-      const icon = t.icon || FALLBACK_ICON;
-      const name = safe(t.name || 'Herramienta');
-      const desc = safe(t.desc || '');
-      const badge = safe(t.badge || '');
-      const status = safe(t.status || '');
-
-      a.innerHTML = `
-        <div class="iconBox">
-          <img src="${icon}" alt="">
-        </div>
-        <div class="toolText">
-          <p class="toolName">${name}</p>
-          <p class="toolDesc">${desc}</p>
-          <div class="toolMeta">
-            ${t.group ? `<span class="miniTag"><strong>${safe(t.group)}</strong></span>` : ''}
-            ${badge ? `<span class="miniTag">${badge}</span>` : ''}
-            ${status ? `<span class="miniTag red">${status}</span>` : ''}
-          </div>
-        </div>
-      `;
-
-      const img = a.querySelector('img');
-      img.addEventListener('error', () => { img.src = FALLBACK_ICON; });
-
-      return a;
-    }
-
-    function pinnedCard(t){
-      const a = toolCard(t);
-      a.style.padding = '14px';
-      a.querySelector('.iconBox').style.width = '56px';
-      a.querySelector('.iconBox').style.height = '56px';
-      a.querySelector('img').style.width = '36px';
-      a.querySelector('img').style.height = '36px';
-      a.querySelector('.toolName').style.fontSize = '15.5px';
-      return a;
-    }
-
-    function buildChips(groups){
-      chipsEl.innerHTML = '';
-
-      const mk = (label) => {
-        const c = document.createElement('div');
-        c.className = 'chip' + (label === activeGroup ? ' active' : '');
-        c.textContent = label;
-        c.addEventListener('click', () => {
-          activeGroup = label;
-          buildChips(groups);
-          renderTools();
-        });
-        return c;
-      };
-
-      chipsEl.appendChild(mk('Todos'));
-      groups.forEach(g => chipsEl.appendChild(mk(g)));
-    }
+    function safe(v){ return (v ?? '').toString(); }
 
     function renderTools(){
-      const all = (window.TOOLS || []).slice();
+      const root = document.getElementById('tools');
+      root.innerHTML = '';
 
-      const list = (activeGroup === 'Todos')
-        ? all
-        : all.filter(t => safe(t.group || 'General').trim() === activeGroup);
+      const tools = (window.TOOLS || []);
+      tools.forEach(t => {
+        const a = document.createElement('a');
+        a.className = 'tool';
+        a.href = t.url || '#';
+        a.target = '_blank';
+        a.rel = 'noopener';
 
-      const pinned = list.filter(t => !!t.pinned);
-      const normal = list.filter(t => !t.pinned);
+        const icon = safe(t.icon);
+        const group = safe(t.group);
+        const badge = safe(t.badge);
+        const status = safe(t.status);
 
-      // pinned
-      pinnedRoot.innerHTML = '';
-      if (pinned.length){
-        pinnedRoot.style.display = 'grid';
-        pinned.sort((a,b) => byName(a.name, b.name)).forEach(t => pinnedRoot.appendChild(pinnedCard(t)));
-      } else {
-        pinnedRoot.style.display = 'none';
-      }
-
-      // grouped
-      toolsRoot.innerHTML = '';
-      const grouped = groupTools(normal);
-
-      Object.keys(grouped).sort(byName).forEach(groupName => {
-        const wrap = document.createElement('div');
-        wrap.className = 'toolGroup';
-
-        const head = document.createElement('div');
-        head.className = 'toolGroupTitle';
-        head.innerHTML = `
-          <div class="left">
-            <span class="${pickGroupBadge(groupName)}"></span>
-            <span>${groupName}</span>
+        a.innerHTML = `
+          <div class="tool-ico">
+            ${icon ? `<img src="${icon}" alt="">` : `<div class="fallback">${FALLBACK(t.name)}</div>`}
           </div>
-          <em>${grouped[groupName].length}</em>
+          <div class="tool-txt">
+            <p class="tool-name">${safe(t.name)}</p>
+            <p class="tool-desc">${safe(t.desc)}</p>
+            <div class="tool-meta">
+              ${group ? `<span class="tag">${group}</span>` : ``}
+              ${badge ? `<span class="tag">${badge}</span>` : ``}
+              ${status ? `<span class="tag red">${status}</span>` : ``}
+            </div>
+          </div>
         `;
-        wrap.appendChild(head);
 
-        const grid = document.createElement('div');
-        grid.className = 'toolGrid';
-        grouped[groupName].sort((a,b) => byName(a.name, b.name)).forEach(t => grid.appendChild(toolCard(t)));
-        wrap.appendChild(grid);
+        // Si el icono no existe, usa fallback
+        const img = a.querySelector('img');
+        if(img){
+          img.addEventListener('error', () => {
+            img.remove();
+            const box = a.querySelector('.tool-ico');
+            box.innerHTML = `<div class="fallback">${FALLBACK(t.name)}</div>`;
+          });
+        }
 
-        toolsRoot.appendChild(wrap);
+        root.appendChild(a);
       });
     }
 
@@ -684,12 +497,12 @@
       const countEl = document.getElementById(countId);
       const items = (list || []).slice();
 
-      if (countEl) countEl.textContent = items.length ? `${items.length} elemento(s)` : '—';
+      if(countEl) countEl.textContent = items.length ? `${items.length}` : '—';
 
       el.innerHTML = '';
       items.forEach(n => {
         const div = document.createElement('div');
-        div.className = 'item';
+        div.className = 'feed-item';
 
         const title = safe(n.title);
         const date = safe(n.date);
@@ -699,45 +512,26 @@
         const image = safe(n.image);
 
         div.innerHTML = `
-          <div class="itemHead">
-            <p class="itemTitle">${title}</p>
-            <span class="itemDate">${date}</span>
+          <div class="feed-top">
+            <p class="feed-title">${title}</p>
+            <span class="feed-date">${date}</span>
           </div>
-          <p class="itemBody">${text}</p>
-
-          <div class="actions">
+          <p class="feed-text">${text}</p>
+          <div class="feed-actions">
             ${link ? `<a class="btn" href="${link}" target="_blank" rel="noopener">Abrir enlace</a>` : ''}
             ${pdf ? `<a class="btn red" href="${pdf}" target="_blank" rel="noopener">Ver PDF</a>` : ''}
             ${image ? `<a class="btn" href="${image}" target="_blank" rel="noopener">Ver imagen</a>` : ''}
           </div>
-
-          ${(pdf || image) ? `
-            <details>
-              <summary>Previsualizar aquí (si el navegador lo permite)</summary>
-              <div class="preview">
-                ${image ? `<img src="${image}" alt="">` : ''}
-                ${(!image && pdf) ? `<embed src="${pdf}" type="application/pdf" />` : ''}
-              </div>
-            </details>
-          ` : ''}
         `;
-
-        const imgs = div.querySelectorAll('img');
-        imgs.forEach(img => img.addEventListener('error', () => { img.style.display='none'; }));
 
         el.appendChild(div);
       });
     }
 
-    (function init(){
-      const tools = (window.TOOLS || []);
-      const groups = Array.from(new Set(tools.map(t => safe(t.group || 'General').trim()))).sort(byName);
-      buildChips(groups);
-
-      renderTools();
-      renderFeed(window.COMUNICADOS || [], 'comunicados', 'commCount');
-      renderFeed(window.NOTICIAS || [], 'noticias', 'newsCount');
-    })();
+    // Init
+    renderTools();
+    renderFeed(window.COMUNICADOS || [], 'comunicados', 'commCount');
+    renderFeed(window.NOTICIAS || [], 'noticias', 'newsCount');
   </script>
 </body>
 </html>
