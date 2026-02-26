@@ -6,117 +6,267 @@
   <title>Panel Comercial</title>
 
   <style>
-    /* ===== Cabecera visual de herramienta por pestaña (hero) ===== */
-.tool-hero{
-  grid-column: 1 / -1;
-  display:flex;
-  gap:12px;
-  align-items:flex-start;
-  padding:12px;
-  border:1px solid #E6EAF2;
-  border-radius:10px;
-  background: linear-gradient(180deg, #FFFFFF, #F7F9FD);
-}
+    :root{
+      /* Look & feel tipo Salesforce/HRmotor */
+      --navy: #0B1D4A;
+      --navy-2:#08163A;
+      --bg:   #F4F6F9;
+      --card: #FFFFFF;
+      --line: #D9DEE7;
+      --text: #1F2A44;
+      --muted:#6B7280;
+      --danger:#B91C1C;
+      --shadow: 0 2px 10px rgba(16,24,40,.08);
+      --radius: 10px;
 
-.tool-hero-ico{
-  width:56px;
-  height:56px;
-  border-radius:14px;
-  border:1px solid #E2E8F0;
-  background:#F2F5FB;
-  display:grid;
-  place-items:center;
-  overflow:hidden;
-  flex: 0 0 auto;
-}
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-.tool-hero-ico img{
-  width:34px;
-  height:34px;
-  object-fit:contain;
-  display:block;
-}
+    *{ box-sizing:border-box; }
+    body{ margin:0; background:var(--bg); color:var(--text); }
 
-.tool-hero-ico .fallback{
-  font-weight:950;
-  color:#243B7A;
-  font-size:14px;
-}
+    /* ===== Topbar blanca ===== */
+    .topbar{ background:#fff; border-bottom:1px solid var(--line); }
+    .topbar-inner{
+      max-width: 1280px; margin:0 auto; padding:14px 16px;
+      display:grid; grid-template-columns: 1fr auto 1fr; align-items:center; gap:12px;
+    }
 
-.tool-hero-main{
-  flex:1 1 auto;
-  min-width:0;
-}
+    .global-search{
+      display:flex; align-items:center; gap:10px;
+      border:1px solid var(--line); border-radius:6px;
+      padding:10px 12px; background:#fff;
+    }
+    .global-search svg{ opacity:.7; }
+    .global-search input{
+      width:100%; border:0; outline:0; font-size:13px; color:var(--text);
+    }
+    .global-search input::placeholder{ color:#9AA3B2; }
 
-.tool-hero-title{
-  margin:0;
-  font-size:15.5px;
-  font-weight:950;
-  line-height:1.15;
-}
+    .logo{ display:flex; align-items:center; justify-content:center; }
+    .logo img{ height:44px; width:auto; display:block; }
+    .logo .fallbackText{
+      font-weight:900; letter-spacing:.2px; color:var(--text);
+      display:none;
+    }
 
-.tool-hero-desc{
-  margin:6px 0 0;
-  color: var(--muted);
-  font-size:12.8px;
-  line-height:1.35;
-}
+    .userbox{
+      display:flex; align-items:center; justify-content:flex-end; gap:10px;
+      color:var(--muted); font-size:13px; white-space:nowrap;
+    }
+    .avatar{
+      width:30px; height:30px; border-radius:999px;
+      border:1px solid var(--line); background:#EEF2FF;
+      display:grid; place-items:center; color:#243B7A; font-weight:900; font-size:12px;
+    }
+    .caret{
+      width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #8A94A6;
+      margin-left:2px;
+    }
 
-.tool-hero-actions{
-  margin-top:10px;
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
+    @media (max-width: 1000px){
+      .topbar-inner{ grid-template-columns:1fr; }
+      .logo{ justify-content:flex-start; }
+      .userbox{ justify-content:flex-start; }
+    }
 
-.btn.primary{
-  background: var(--navy);
-  border-color: var(--navy);
-  color:#fff;
-}
-.btn.primary:hover{
-  background: var(--navy-2);
-  border-color: var(--navy-2);
-}
+    /* ===== Navbar azul (tabs) ===== */
+    .navbar{ background:var(--navy); }
+    .navbar-inner{
+      max-width: 1280px; margin:0 auto; padding:0 8px;
+      display:flex; align-items:center; gap:6px; overflow:auto;
+    }
+    .nav-item{
+      display:flex; align-items:center; gap:8px;
+      padding:12px 12px;
+      color:rgba(255,255,255,.92);
+      text-decoration:none;
+      font-size:13px; font-weight:800;
+      border-radius:6px; white-space:nowrap;
+      cursor:pointer;
+      user-select:none;
+    }
+    .nav-item:hover{ background:var(--navy-2); }
+    .nav-item.active{ background:rgba(255,255,255,.14); }
+    .nav-item svg{ opacity:.95; }
 
-.badge-row{
-  margin-top:10px;
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  padding:5px 10px;
-  border-radius:999px;
-  border:1px solid #E4E9F3;
-  background:#F7F9FD;
-  color:#334155;
-  font-size:11.5px;
-  font-weight:850;
-}
-.badge.red{
-  border-color: rgba(185,28,28,.25);
-  background: rgba(185,28,28,.08);
-  color: var(--danger);
-}
+    /* ===== Layout ===== */
+    .wrap{
+      max-width: 1280px; margin:0 auto; padding:16px;
+      display:grid; grid-template-columns: 1.75fr 1fr; gap:14px; align-items:start;
+    }
+    @media (max-width: 1000px){
+      .wrap{ grid-template-columns:1fr; }
+    }
 
-/* Pasos (checklist) más visual */
-.steps{
-  margin:8px 0 0;
-  padding-left:18px;
-  color: var(--text);
-  font-size:12.6px;
-  line-height:1.4;
-}
-.steps li{ margin:6px 0; }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card-h{
+      padding:12px;
+      border-bottom:1px solid var(--line);
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .card-h .title{ font-size:14px; font-weight:950; letter-spacing:.2px; }
+    .card-b{ padding:12px; }
+
+    .hide{ display:none !important; }
+
+    /* ===== Botón CTA ===== */
+    .cta{
+      width:100%;
+      background:#0B0B0B; color:#fff;
+      border:0; border-radius:6px; padding:12px 14px;
+      font-weight:950; cursor:pointer; margin-bottom:12px;
+    }
+    .cta:hover{ opacity:.92; }
+
+    /* ===== Herramientas (Home) ===== */
+    .tools-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap:10px;
+    }
+    .tool{
+      display:flex; gap:12px; align-items:center;
+      padding:12px;
+      border:1px solid #E6EAF2;
+      border-radius:10px;
+      text-decoration:none; color:var(--text); background:#fff;
+      transition: transform .08s ease, box-shadow .08s ease, border-color .08s ease;
+    }
+    .tool:hover{ transform: translateY(-1px); border-color:#CAD3E3; box-shadow:0 6px 18px rgba(16,24,40,.10); }
+
+    .tool-ico{
+      width:42px; height:42px; border-radius:10px;
+      border:1px solid #E2E8F0; background:#F2F5FB;
+      display:grid; place-items:center; overflow:hidden; flex: 0 0 auto;
+    }
+    .tool-ico img{ width:26px; height:26px; object-fit:contain; display:block; }
+    .tool-ico .fallback{ font-weight:950; color:#243B7A; font-size:13px; }
+
+    .tool-txt{ min-width:0; }
+    .tool-name{ font-weight:950; font-size:14px; margin:0; line-height:1.15; }
+    .tool-desc{ margin:3px 0 0; font-size:12.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .tool-meta{ margin-top:6px; display:flex; gap:6px; flex-wrap:wrap; }
+
+    /* ===== Tags / Buttons ===== */
+    .tag{
+      font-size:11px; font-weight:900;
+      border:1px solid #E4E9F3; background:#F7F9FD; color:#334155;
+      padding:3px 8px; border-radius:999px;
+    }
+    .tag.red{ border-color: rgba(185,28,28,.25); background: rgba(185,28,28,.08); color: var(--danger); }
+
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid #E4E9F3; background:#fff; color:var(--text);
+      text-decoration:none; font-weight:900; font-size:12px;
+      padding:7px 10px; border-radius:999px;
+    }
+    .btn:hover{ border-color:#CAD3E3; }
+    .btn.red{ border-color: rgba(185,28,28,.25); background: rgba(185,28,28,.06); color: var(--danger); }
+    .btn.primary{ background: var(--navy); border-color: var(--navy); color:#fff; }
+    .btn.primary:hover{ background: var(--navy-2); border-color: var(--navy-2); }
+
+    /* ===== Sidebar feeds ===== */
+    .feed{ display:grid; gap:10px; }
+    .feed-item{
+      border:1px solid #E6EAF2; border-radius:10px; padding:10px; background:#fff;
+    }
+    .feed-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+    .feed-title{ font-weight:950; font-size:13px; margin:0; line-height:1.2; }
+    .feed-date{ font-size:12px; color:#8A94A6; white-space:nowrap; }
+    .feed-text{ margin:6px 0 0; font-size:12.5px; color:var(--muted); line-height:1.35; }
+    .feed-actions{ margin-top:8px; display:flex; gap:8px; flex-wrap:wrap; }
+
+    .muted-note{ margin-top:10px; color:#8A94A6; font-size:12px; }
+
+    /* ===== Página interna (cada pestaña) ===== */
+    .page-title{ font-size:16px; font-weight:950; margin:0; }
+    .page-sub{ margin:6px 0 0; color:var(--muted); font-size:12.8px; line-height:1.35; }
+
+    .info-grid{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap:10px;
+    }
+
+    .info-box{
+      border:1px solid #E6EAF2;
+      border-radius:10px;
+      padding:12px;
+      background:#fff;
+    }
+    .info-box h3{ margin:0; font-size:13.5px; font-weight:950; }
+    .info-box p{ margin:6px 0 0; color:var(--muted); font-size:12.6px; line-height:1.35; }
+    .info-box ul{ margin:8px 0 0 18px; color:var(--text); font-size:12.6px; line-height:1.35; }
+    .info-actions{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+
+    /* ===== HERO visual en cada pestaña ===== */
+    .tool-hero{
+      grid-column: 1 / -1;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:12px;
+      border:1px solid #E6EAF2;
+      border-radius:10px;
+      background: linear-gradient(180deg, #FFFFFF, #F7F9FD);
+    }
+    .tool-hero-ico{
+      width:56px; height:56px;
+      border-radius:14px;
+      border:1px solid #E2E8F0;
+      background:#F2F5FB;
+      display:grid; place-items:center;
+      overflow:hidden;
+      flex: 0 0 auto;
+    }
+    .tool-hero-ico img{ width:34px; height:34px; object-fit:contain; display:block; }
+    .tool-hero-ico .fallback{ font-weight:950; color:#243B7A; font-size:14px; }
+    .tool-hero-main{ flex:1 1 auto; min-width:0; }
+    .tool-hero-title{ margin:0; font-size:15.5px; font-weight:950; line-height:1.15; }
+    .tool-hero-desc{ margin:6px 0 0; color:var(--muted); font-size:12.8px; line-height:1.35; }
+    .tool-hero-actions{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+
+    .badge-row{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+    .badge{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:5px 10px;
+      border-radius:999px;
+      border:1px solid #E4E9F3;
+      background:#F7F9FD;
+      color:#334155;
+      font-size:11.5px;
+      font-weight:900;
+    }
+    .badge.red{
+      border-color: rgba(185,28,28,.25);
+      background: rgba(185,28,28,.08);
+      color: var(--danger);
+    }
+
+    .steps{
+      margin:8px 0 0;
+      padding-left:18px;
+      color: var(--text);
+      font-size:12.6px;
+      line-height:1.4;
+    }
+    .steps li{ margin:6px 0; }
   </style>
 </head>
 
 <body>
-  <!-- Header blanco -->
+  <!-- Topbar -->
   <header class="topbar">
     <div class="topbar-inner">
       <div class="global-search" aria-label="Búsqueda global">
@@ -128,48 +278,47 @@
       </div>
 
       <div class="logo">
-        <!-- Sube tu logo a assets/brand/hrmotor-logo.png o cambia la ruta -->
-        <img src="assets/brand/hrmotor-logo.png" alt="HRmotor" />
+        <img id="brandLogo" src="assets/brand/hrmotor-logo.png" alt="HRmotor" />
+        <div class="fallbackText" id="brandFallback">HRmotor</div>
       </div>
 
-<div class="userbox">
-  <div class="avatar" id="userInitials">HR</div>
-  <div class="caret" aria-hidden="true"></div>
-</div>
+      <!-- SIN nombre visible -->
+      <div class="userbox">
+        <div class="avatar" id="userInitials">HR</div>
+        <div class="caret" aria-hidden="true"></div>
+      </div>
     </div>
   </header>
 
- <!-- Barra azul (tabs internos) -->
-<nav class="navbar" aria-label="Navegación">
-  <div class="navbar-inner">
-    <!-- Home (Herramientas) -->
-    <a class="nav-item active" data-view="tools" href="#" onclick="return false;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z"
-              stroke="white" stroke-width="2" stroke-linejoin="round"/>
-      </svg>
-    </a>
+  <!-- Navbar tabs -->
+  <nav class="navbar" aria-label="Navegación">
+    <div class="navbar-inner">
+      <a class="nav-item active" data-view="tools" href="#" onclick="return false;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z"
+                stroke="white" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+      </a>
 
-    <!-- Tabs (contenido interno) -->
-    <a class="nav-item" data-page="acceso_web" href="#" onclick="return false;">Acceso Web</a>
-    <a class="nav-item" data-page="my_mutua" href="#" onclick="return false;">My Mutua</a>
-    <a class="nav-item" data-page="serviceform" href="#" onclick="return false;">Serviceform</a>
-    <a class="nav-item" data-page="whatsapp_web" href="#" onclick="return false;">WhatsApp Web</a>
-    <a class="nav-item" data-page="lendismart" href="#" onclick="return false;">Lendismart</a>
-    <a class="nav-item" data-page="docusign" href="#" onclick="return false;">DocuSign</a>
-    <a class="nav-item" data-page="woffu" href="#" onclick="return false;">Woffu</a>
-  </div>
-</nav>
+      <a class="nav-item" data-page="acceso_web" href="#" onclick="return false;">Acceso Web</a>
+      <a class="nav-item" data-page="my_mutua" href="#" onclick="return false;">My Mutua</a>
+      <a class="nav-item" data-page="serviceform" href="#" onclick="return false;">Serviceform</a>
+      <a class="nav-item" data-page="whatsapp_web" href="#" onclick="return false;">WhatsApp Web</a>
+      <a class="nav-item" data-page="lendismart" href="#" onclick="return false;">Lendismart</a>
+      <a class="nav-item" data-page="docusign" href="#" onclick="return false;">DocuSign</a>
+      <a class="nav-item" data-page="woffu" href="#" onclick="return false;">Woffu</a>
+    </div>
+  </nav>
 
   <!-- Layout -->
   <main class="wrap">
-    <!-- Columna izquierda: cambia entre Herramientas y Página -->
+    <!-- Left column -->
     <div>
-      <!-- Vista: Herramientas -->
+      <!-- Home: Herramientas -->
       <section id="toolsCard" class="card" aria-label="Herramientas">
         <div class="card-h">
           <div class="title">Herramientas</div>
-          <div style="color:var(--muted); font-size:12px; font-weight:800;">Accesos directos</div>
+          <div style="color:var(--muted); font-size:12px; font-weight:900;">Accesos directos</div>
         </div>
         <div class="card-b">
           <div id="tools" class="tools-grid"></div>
@@ -179,11 +328,11 @@
         </div>
       </section>
 
-      <!-- Vista: Página de información (protocolos/guías) -->
+      <!-- Pages: cada pestaña -->
       <section id="pageCard" class="card hide" aria-label="Información">
         <div class="card-h">
           <div class="title" id="pageHeader">Información</div>
-          <div style="color:var(--muted); font-size:12px; font-weight:800;" id="pageMeta">—</div>
+          <div style="color:var(--muted); font-size:12px; font-weight:900;" id="pageMeta">—</div>
         </div>
         <div class="card-b">
           <p class="page-title" id="pageTitle">—</p>
@@ -193,16 +342,16 @@
       </section>
     </div>
 
-    <!-- Columna derecha: siempre visible -->
+    <!-- Right column -->
     <aside>
-      <button class="cta" type="button" onclick="alert('Acción a definir: aquí podrías enlazar a Salesforce/crear tarea');">
+      <button class="cta" type="button" onclick="alert('Acción a definir: enlazar a Salesforce / crear tarea');">
         Crear tarea
       </button>
 
       <section class="card" aria-label="Comunicados">
         <div class="card-h">
           <div class="title">Comunicados</div>
-          <div id="commCount" style="color:var(--muted); font-size:12px; font-weight:800;">—</div>
+          <div id="commCount" style="color:var(--muted); font-size:12px; font-weight:900;">—</div>
         </div>
         <div class="card-b">
           <div id="comunicados" class="feed"></div>
@@ -214,7 +363,7 @@
       <section class="card" aria-label="Noticias">
         <div class="card-h">
           <div class="title">Noticias</div>
-          <div id="newsCount" style="color:var(--muted); font-size:12px; font-weight:800;">—</div>
+          <div id="newsCount" style="color:var(--muted); font-size:12px; font-weight:900;">—</div>
         </div>
         <div class="card-b">
           <div id="noticias" class="feed"></div>
@@ -223,19 +372,31 @@
     </aside>
   </main>
 
-  <!-- IMPORTANTÍSIMO: en content.js usa window.TOOLS / window.COMUNICADOS / window.NOTICIAS / window.PAGES -->
-  <script src="content.js?v=1"></script>
+  <!-- Carga datos -->
+  <script src="content.js?v=10"></script>
 
   <script>
-    const FALLBACK = (name) => (name || 'H').trim().slice(0,2).toUpperCase();
+    // Helpers
     const safe = (v) => (v ?? '').toString();
+    const esc = (s) => safe(s).replace(/[&<>"']/g, m => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+    }[m]));
+    const FALLBACK = (name) => (name || 'H').trim().slice(0,2).toUpperCase();
 
-    // ===== Render Herramientas =====
+    // Logo fallback
+    (function(){
+      const img = document.getElementById('brandLogo');
+      const fb = document.getElementById('brandFallback');
+      if(!img) return;
+      img.addEventListener('error', () => { img.style.display='none'; if(fb) fb.style.display='block'; });
+    })();
+
+    // Render tools grid
     function renderTools(){
       const root = document.getElementById('tools');
       root.innerHTML = '';
-
       const tools = (window.TOOLS || []);
+
       tools.forEach(t => {
         const a = document.createElement('a');
         a.className = 'tool';
@@ -250,15 +411,15 @@
 
         a.innerHTML = `
           <div class="tool-ico">
-            ${icon ? `<img src="${icon}" alt="">` : `<div class="fallback">${FALLBACK(t.name)}</div>`}
+            ${icon ? `<img src="${esc(icon)}" alt="">` : `<div class="fallback">${esc(FALLBACK(t.name))}</div>`}
           </div>
           <div class="tool-txt">
-            <p class="tool-name">${safe(t.name)}</p>
-            <p class="tool-desc">${safe(t.desc)}</p>
+            <p class="tool-name">${esc(t.name || '')}</p>
+            <p class="tool-desc">${esc(t.desc || '')}</p>
             <div class="tool-meta">
-              ${group ? `<span class="tag">${group}</span>` : ``}
-              ${badge ? `<span class="tag">${badge}</span>` : ``}
-              ${status ? `<span class="tag red">${status}</span>` : ``}
+              ${group ? `<span class="tag">${esc(group)}</span>` : ``}
+              ${badge ? `<span class="tag">${esc(badge)}</span>` : ``}
+              ${status ? `<span class="tag red">${esc(status)}</span>` : ``}
             </div>
           </div>
         `;
@@ -267,8 +428,7 @@
         if(img){
           img.addEventListener('error', () => {
             img.remove();
-            const box = a.querySelector('.tool-ico');
-            box.innerHTML = `<div class="fallback">${FALLBACK(t.name)}</div>`;
+            a.querySelector('.tool-ico').innerHTML = `<div class="fallback">${esc(FALLBACK(t.name))}</div>`;
           });
         }
 
@@ -276,7 +436,7 @@
       });
     }
 
-    // ===== Render Comunicados / Noticias =====
+    // Render feeds
     function renderFeed(list, containerId, countId){
       const el = document.getElementById(containerId);
       const countEl = document.getElementById(countId);
@@ -289,9 +449,9 @@
         const div = document.createElement('div');
         div.className = 'feed-item';
 
-        const title = safe(n.title);
-        const date = safe(n.date);
-        const text = safe(n.text);
+        const title = esc(n.title || '');
+        const date = esc(n.date || '');
+        const text = esc(n.text || '');
         const link = safe(n.link);
         const pdf = safe(n.pdf);
         const image = safe(n.image);
@@ -303,21 +463,22 @@
           </div>
           <p class="feed-text">${text}</p>
           <div class="feed-actions">
-            ${link ? `<a class="btn" href="${link}" target="_blank" rel="noopener">Abrir enlace</a>` : ''}
-            ${pdf ? `<a class="btn red" href="${pdf}" target="_blank" rel="noopener">Ver PDF</a>` : ''}
-            ${image ? `<a class="btn" href="${image}" target="_blank" rel="noopener">Ver imagen</a>` : ''}
+            ${link ? `<a class="btn" href="${esc(link)}" target="_blank" rel="noopener">Abrir enlace</a>` : ''}
+            ${pdf ? `<a class="btn red" href="${esc(pdf)}" target="_blank" rel="noopener">Ver PDF</a>` : ''}
+            ${image ? `<a class="btn" href="${esc(image)}" target="_blank" rel="noopener">Ver imagen</a>` : ''}
           </div>
         `;
+
         el.appendChild(div);
       });
     }
 
-    // ===== Tabs internos: Tools vs Páginas =====
+    // Tabs logic
     function setActiveNav(el){
       document.querySelectorAll('.nav-item').forEach(a => a.classList.remove('active'));
       if(el) el.classList.add('active');
     }
-F
+
     function showTools(){
       document.getElementById('toolsCard').classList.remove('hide');
       document.getElementById('pageCard').classList.add('hide');
@@ -344,35 +505,81 @@ F
         content.innerHTML = `
           <div class="info-box">
             <h3>Cómo activarlo</h3>
-            <p>Crea <b>window.PAGES["${pageKey}"]</b> con title/intro/blocks.</p>
-            <div class="info-actions">
-              <a class="btn" href="#" onclick="return false;">OK</a>
-            </div>
+            <p>Falta <b>window.PAGES["${esc(pageKey)}"]</b>.</p>
           </div>`;
         return;
       }
 
       header.textContent = page.navLabel || page.title || 'Información';
       meta.textContent = page.updated ? `Actualizado: ${page.updated}` : '—';
-      title.textContent = page.title || '—';
+
+      title.textContent = page.title || '';
       intro.textContent = page.intro || '';
 
+      const icon = safe(page.icon);
+      const primaryUrl = safe(page.primaryUrl);
+      const primaryLabel = esc(page.primaryLabel || 'Abrir');
+      const description = esc(page.description || page.intro || '');
+
+      const badges = (page.badges || []).map(b => {
+        const isRed = (b.color || '').toLowerCase() === 'red';
+        return `<span class="badge ${isRed ? 'red' : ''}">${esc(b.label || '')}</span>`;
+      }).join('');
+
+      const hero = `
+        <div class="tool-hero">
+          <div class="tool-hero-ico">
+            ${icon ? `<img src="${esc(icon)}" alt="">` : `<div class="fallback">${esc(FALLBACK(page.heroTitle || page.title || page.navLabel))}</div>`}
+          </div>
+
+          <div class="tool-hero-main">
+            <p class="tool-hero-title">${esc(page.heroTitle || page.title || page.navLabel || 'Herramienta')}</p>
+            <p class="tool-hero-desc">${description}</p>
+
+            <div class="tool-hero-actions">
+              ${primaryUrl ? `<a class="btn primary" target="_blank" rel="noopener" href="${esc(primaryUrl)}">${primaryLabel}</a>` : ``}
+              ${page.secondaryUrl ? `<a class="btn" target="_blank" rel="noopener" href="${esc(page.secondaryUrl)}">${esc(page.secondaryLabel || 'Abrir enlace')}</a>` : ``}
+            </div>
+
+            ${badges ? `<div class="badge-row">${badges}</div>` : ``}
+          </div>
+        </div>
+      `;
+
       const blocks = page.blocks || [];
-      content.innerHTML = blocks.map(b => {
-        const bullets = (b.bullets || []).map(x => `<li>${x}</li>`).join('');
-        const links = (b.links || []).map(l => `<a class="btn" target="_blank" rel="noopener" href="${l.url}">${l.label}</a>`).join('');
-        const contact = b.contact ? `<a class="btn red" href="${b.contactUrl || '#'}" target="_blank" rel="noopener">${b.contact}</a>` : '';
+      const blocksHtml = blocks.map(b => {
+        const bullets = (b.bullets || []).map(x => `<li>${esc(x)}</li>`).join('');
+        const steps = (b.steps || []).map(x => `<li>${esc(x)}</li>`).join('');
+        const links = (b.links || []).map(l =>
+          `<a class="btn" target="_blank" rel="noopener" href="${esc(l.url)}">${esc(l.label)}</a>`
+        ).join('');
+
+        const contact = b.contact
+          ? `<a class="btn red" target="_blank" rel="noopener" href="${esc(b.contactUrl || '#')}">${esc(b.contact)}</a>`
+          : '';
+
         return `
           <div class="info-box">
-            <h3>${b.title || ''}</h3>
-            ${b.text ? `<p>${b.text}</p>` : ''}
+            <h3>${esc(b.title || '')}</h3>
+            ${b.text ? `<p>${esc(b.text)}</p>` : ''}
             ${bullets ? `<ul>${bullets}</ul>` : ''}
+            ${steps ? `<ol class="steps">${steps}</ol>` : ''}
             ${(links || contact) ? `<div class="info-actions">${links}${contact}</div>` : ''}
-          </div>`;
+          </div>
+        `;
       }).join('');
+
+      content.innerHTML = hero + blocksHtml;
+
+      const img = content.querySelector('.tool-hero-ico img');
+      if(img){
+        img.addEventListener('error', () => {
+          const box = content.querySelector('.tool-hero-ico');
+          box.innerHTML = `<div class="fallback">${esc(FALLBACK(page.heroTitle || page.title || page.navLabel))}</div>`;
+        });
+      }
     }
 
-    // ===== Init + listeners =====
     function initNav(){
       // Home
       const home = document.querySelector('.nav-item[data-view="tools"]');
@@ -382,7 +589,7 @@ F
         showTools();
       });
 
-      // Páginas
+      // Pages
       document.querySelectorAll('.nav-item[data-page]').forEach(a => {
         a.addEventListener('click', (e) => {
           e.preventDefault();
