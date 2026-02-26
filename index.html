@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Panel Comercial</title>
+  <style>
+    :root{
+      --bg:#f6f7fb; --card:#fff; --text:#111; --muted:rgba(0,0,0,.65);
+      --line:rgba(0,0,0,.10); --shadow:0 10px 24px rgba(0,0,0,.08);
+      --radius:16px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    }
+    body{ margin:0; background:var(--bg); color:var(--text); }
+    header{ padding:18px 18px 10px; }
+    h1{ margin:0 0 6px; font-size:18px; }
+    .sub{ margin:0; font-size:13px; color:var(--muted); }
+    .wrap{ padding:14px 18px 20px; display:grid; gap:14px; }
+
+    .section{
+      background:var(--card); border:1px solid var(--line);
+      border-radius:var(--radius); box-shadow:var(--shadow);
+      padding:14px;
+    }
+    .section h2{ margin:0 0 10px; font-size:14px; letter-spacing:.2px; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap:12px;
+    }
+    a.tool{
+      text-decoration:none; color:inherit;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      display:flex; gap:12px; align-items:center;
+      background:#fff;
+      transition: transform .08s ease, box-shadow .08s ease;
+    }
+    a.tool:hover{ transform: translateY(-1px); box-shadow:0 12px 26px rgba(0,0,0,.10); }
+    .ico{
+      width:42px; height:42px; border-radius:10px; object-fit:cover;
+      border:1px solid rgba(0,0,0,.08); background:#fff; flex:0 0 auto;
+    }
+    .tinfo{ min-width:0; }
+    .tname{ font-weight:700; font-size:14px; line-height:1.2; }
+    .tdesc{ margin-top:2px; font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+    .newslist{ display:grid; gap:10px; }
+    .item{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      background:#fff;
+    }
+    .toprow{ display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+    .title{ font-weight:750; font-size:14px; margin:0; }
+    .meta{ font-size:12px; color:var(--muted); white-space:nowrap; }
+    .body{ margin:8px 0 0; font-size:13px; color:rgba(0,0,0,.78); line-height:1.35; }
+    .actions{ margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid var(--line); background:#fff; cursor:pointer;
+      text-decoration:none; color:inherit; font-size:12px;
+    }
+    .btn:hover{ box-shadow:0 10px 20px rgba(0,0,0,.08); }
+
+    details{ margin-top:10px; }
+    details summary{ cursor:pointer; font-size:12px; color:rgba(0,0,0,.72); }
+    .preview{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      overflow:hidden;
+      background:#fafafa;
+    }
+    .preview img{ width:100%; display:block; }
+    .preview embed{ width:100%; height:520px; border:0; display:block; }
+
+    footer{ padding:0 18px 18px; font-size:12px; color:var(--muted); }
+    .pill{ display:inline-block; padding:4px 8px; border-radius:999px; border:1px solid var(--line); background:#fff; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Panel Comercial</h1>
+    <p class="sub">Accesos directos y comunicados internos · Actualizado desde GitHub</p>
+  </header>
+
+  <main class="wrap">
+
+    <section class="section">
+      <h2>Herramientas</h2>
+      <div id="tools" class="grid"></div>
+    </section>
+
+    <section class="section">
+      <h2>Comunicados</h2>
+      <div id="comunicados" class="newslist"></div>
+    </section>
+
+    <section class="section">
+      <h2>Noticias</h2>
+      <div id="noticias" class="newslist"></div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span class="pill">Tip: para actualizar, sube el PDF/imagen a assets/ y añade un ítem en content.js</span>
+  </footer>
+
+  <script src="content.js"></script>
+  <script>
+    // Render herramientas
+    const toolsEl = document.getElementById('tools');
+    TOOLS.forEach(t => {
+      const a = document.createElement('a');
+      a.className = 'tool';
+      a.href = t.url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.innerHTML = `
+        <img class="ico" src="${t.icon}" alt="">
+        <div class="tinfo">
+          <div class="tname">${t.name}</div>
+          <div class="tdesc">${t.desc || ''}</div>
+        </div>`;
+      toolsEl.appendChild(a);
+    });
+
+    function renderFeed(list, containerId){
+      const el = document.getElementById(containerId);
+      list.forEach(n => {
+        const div = document.createElement('div');
+        div.className = 'item';
+
+        const hasImg = !!n.image;
+        const hasPdf = !!n.pdf;
+
+        div.innerHTML = `
+          <div class="toprow">
+            <p class="title">${n.title}</p>
+            <span class="meta">${n.date || ''}</span>
+          </div>
+          <p class="body">${n.text || ''}</p>
+          <div class="actions">
+            ${n.link ? `<a class="btn" href="${n.link}" target="_blank" rel="noopener">Abrir enlace</a>` : ''}
+            ${hasPdf ? `<a class="btn" href="${n.pdf}" target="_blank" rel="noopener">Ver PDF</a>` : ''}
+            ${hasImg ? `<a class="btn" href="${n.image}" target="_blank" rel="noopener">Ver imagen</a>` : ''}
+          </div>
+          ${(hasImg || hasPdf) ? `
+            <details>
+              <summary>Previsualizar aquí (si el navegador lo permite)</summary>
+              <div class="preview">
+                ${hasImg ? `<img src="${n.image}" alt="">` : ''}
+                ${(!hasImg && hasPdf) ? `<embed src="${n.pdf}" type="application/pdf" />` : ''}
+              </div>
+            </details>` : ''}
+        `;
+        el.appendChild(div);
+      });
+    }
+
+    renderFeed(COMUNICADOS, 'comunicados');
+    renderFeed(NOTICIAS, 'noticias');
+  </script>
+</body>
+</html>
