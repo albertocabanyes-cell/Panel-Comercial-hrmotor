@@ -72,7 +72,7 @@ window.PAGES = {
     title: "Acceso Web (Gestor HR Motor)",
     heroTitle: "Gestor HR Motor",
     description: "Portal interno de operativa diaria. Acceso a procesos, documentación y herramientas corporativas.",
-    icon: "assets/icons/hrmotor.png",
+    icon: "9d5b4786-8fbb-4391-a2f3-b34020945959.png",
     primaryUrl: "https://www.hrmotor.com/gestor/",
     primaryLabel: "Abrir Acceso Web",
     updated: "2026-02-26",
