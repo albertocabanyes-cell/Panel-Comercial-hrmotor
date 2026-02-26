@@ -1,7 +1,7 @@
 // Iconos: súbelos a /assets/icons/ y usa rutas relativas.
 // Ejemplo: assets/icons/hrmotor.png | assets/icons/docusign.png | ...
 
-const TOOLS = [
+window.TOOLS = [
   // ===== Prioritarias (pinned) =====
   {
     name: "ACCESO WEB (Gestor)",
@@ -79,7 +79,7 @@ const TOOLS = [
   }
 ];
 
-const COMUNICADOS = [
+window.COMUNICADOS = [
   {
     title: "Cambio de procedimiento - Tasaciones",
     date: "2026-02-26",
@@ -94,7 +94,7 @@ const COMUNICADOS = [
   }
 ];
 
-const NOTICIAS = [
+window.NOTICIAS = [
   {
     title: "Nuevo argumentario comercial (Q1)",
     date: "2026-02-24",
