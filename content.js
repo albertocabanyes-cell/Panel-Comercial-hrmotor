@@ -12,7 +12,7 @@ window.TOOLS = [
     name: "Acceso Web",
     desc: "Gestor HR Motor (operativa interna)",
     url: "https://www.hrmotor.com/gestor/",
-    icon: "assets/icons/hrmotor.png",
+    icon: "9d5b4786-8fbb-4391-a2f3-b34020945959.png",
     group: "Operativa",
     badge: "Diario"
   },
