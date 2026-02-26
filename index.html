@@ -7,16 +7,16 @@
 
   <style>
     :root{
-      /* Look & feel tipo Salesforce/HRmotor (según tu captura) */
-      --navy: #0B1D4A;            /* barra principal */
-      --navy-2:#08163A;           /* hover/active */
-      --bg:   #F4F6F9;            /* fondo app */
-      --card: #FFFFFF;            /* tarjetas */
-      --line: #D9DEE7;            /* bordes suaves */
-      --text: #1F2A44;            /* texto principal */
-      --muted:#6B7280;            /* texto secundario */
-      --link: #1B96FF;            /* azul tipo SF */
-      --danger:#B91C1C;           /* rojo elegante */
+      /* Look & feel tipo Salesforce/HRmotor */
+      --navy: #0B1D4A;
+      --navy-2:#08163A;
+      --bg:   #F4F6F9;
+      --card: #FFFFFF;
+      --line: #D9DEE7;
+      --text: #1F2A44;
+      --muted:#6B7280;
+      --link: #1B96FF;
+      --danger:#B91C1C;
       --shadow: 0 2px 10px rgba(16,24,40,.08);
       --radius: 10px;
 
@@ -24,322 +24,172 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-
     *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      background: var(--bg);
-      color: var(--text);
-    }
+    body{ margin:0; background:var(--bg); color:var(--text); }
 
-    /* ===== Top header blanco (logo + búsqueda + usuario) ===== */
-    .topbar{
-      background: #fff;
-      border-bottom: 1px solid var(--line);
-    }
+    /* ===== Top header blanco ===== */
+    .topbar{ background:#fff; border-bottom:1px solid var(--line); }
     .topbar-inner{
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 14px 16px;
-      display:grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items:center;
-      gap: 12px;
-    }
-
-    .logo{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .logo img{
-      height: 44px;
-      width: auto;
-      display:block;
+      max-width: 1280px; margin:0 auto; padding:14px 16px;
+      display:grid; grid-template-columns: 1fr auto 1fr; align-items:center; gap:12px;
     }
 
     .global-search{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius: 6px;
-      padding: 10px 12px;
-      box-shadow: 0 1px 0 rgba(16,24,40,.02);
+      display:flex; align-items:center; gap:10px;
+      border:1px solid var(--line); border-radius:6px;
+      padding:10px 12px; background:#fff;
     }
-    .global-search svg{ flex: 0 0 auto; opacity:.7; }
-    .global-search input{
-      width:100%;
-      border:0;
-      outline:0;
-      font-size: 13px;
-      color: var(--text);
-    }
-    .global-search input::placeholder{ color: #9AA3B2; }
+    .global-search svg{ opacity:.7; }
+    .global-search input{ width:100%; border:0; outline:0; font-size:13px; color:var(--text); }
+    .global-search input::placeholder{ color:#9AA3B2; }
+
+    .logo{ display:flex; align-items:center; justify-content:center; }
+    .logo img{ height:44px; width:auto; display:block; }
 
     .userbox{
-      display:flex;
-      align-items:center;
-      justify-content:flex-end;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 13px;
-      white-space:nowrap;
+      display:flex; align-items:center; justify-content:flex-end; gap:10px;
+      color:var(--muted); font-size:13px; white-space:nowrap;
     }
     .avatar{
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: #EEF2FF;
-      display:grid;
-      place-items:center;
-      color: #243B7A;
-      font-weight: 700;
-      font-size: 12px;
+      width:30px; height:30px; border-radius:999px;
+      border:1px solid var(--line); background:#EEF2FF;
+      display:grid; place-items:center; color:#243B7A; font-weight:800; font-size:12px;
     }
-    .userbox .caret{
-      width:0;height:0;
-      border-left:5px solid transparent;
-      border-right:5px solid transparent;
-      border-top:6px solid #8A94A6;
-      margin-left: 2px;
+    .caret{
+      width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #8A94A6;
+      margin-left:2px;
     }
 
     /* ===== Navbar azul marino ===== */
-    .navbar{
-      background: var(--navy);
-    }
+    .navbar{ background:var(--navy); }
     .navbar-inner{
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 8px;
-      display:flex;
-      align-items:center;
-      gap: 8px;
-      overflow:auto;
+      max-width: 1280px; margin:0 auto; padding:0 8px;
+      display:flex; align-items:center; gap:6px; overflow:auto;
     }
     .nav-item{
-      display:flex;
-      align-items:center;
-      gap: 8px;
-      padding: 12px 12px;
-      color: rgba(255,255,255,.92);
+      display:flex; align-items:center; gap:8px;
+      padding:12px 12px;
+      color:rgba(255,255,255,.92);
       text-decoration:none;
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: 6px;
-      white-space:nowrap;
+      font-size:13px; font-weight:700;
+      border-radius:6px; white-space:nowrap;
+      cursor:pointer;
+      user-select:none;
     }
-    .nav-item:hover{ background: var(--navy-2); }
+    .nav-item:hover{ background:var(--navy-2); }
+    .nav-item.active{ background:rgba(255,255,255,.14); }
     .nav-item svg{ opacity:.95; }
 
-    /* ===== Layout principal ===== */
+    /* ===== Layout ===== */
     .wrap{
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 16px;
-      display:grid;
-      grid-template-columns: 1.75fr 1fr;
-      gap: 14px;
-      align-items:start;
+      max-width: 1280px; margin:0 auto; padding:16px;
+      display:grid; grid-template-columns: 1.75fr 1fr; gap:14px; align-items:start;
     }
-
     @media (max-width: 1000px){
-      .topbar-inner{ grid-template-columns: 1fr; }
+      .topbar-inner{ grid-template-columns:1fr; }
       .logo{ justify-content:flex-start; }
       .userbox{ justify-content:flex-start; }
-      .wrap{ grid-template-columns: 1fr; }
+      .wrap{ grid-template-columns:1fr; }
     }
 
     .card{
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
       overflow:hidden;
     }
     .card-h{
-      padding: 12px 12px;
-      border-bottom: 1px solid var(--line);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
+      padding:12px;
+      border-bottom:1px solid var(--line);
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
-    .card-h .title{
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: .2px;
-    }
-    .card-b{ padding: 12px; }
+    .card-h .title{ font-size:14px; font-weight:900; letter-spacing:.2px; }
+    .card-b{ padding:12px; }
 
-    /* ===== Herramientas: prioridad visual ===== */
+    /* ===== Herramientas (grid visual) ===== */
     .tools-grid{
       display:grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 10px;
+      gap:10px;
     }
-
     .tool{
-      display:flex;
-      gap: 12px;
-      align-items:center;
-      padding: 12px;
-      border: 1px solid #E6EAF2;
-      border-radius: 10px;
-      text-decoration:none;
-      color: var(--text);
-      background: #fff;
+      display:flex; gap:12px; align-items:center;
+      padding:12px;
+      border:1px solid #E6EAF2;
+      border-radius:10px;
+      text-decoration:none; color:var(--text); background:#fff;
       transition: transform .08s ease, box-shadow .08s ease, border-color .08s ease;
     }
-    .tool:hover{
-      transform: translateY(-1px);
-      border-color: #CAD3E3;
-      box-shadow: 0 6px 18px rgba(16,24,40,.10);
-    }
-
+    .tool:hover{ transform: translateY(-1px); border-color:#CAD3E3; box-shadow:0 6px 18px rgba(16,24,40,.10); }
     .tool-ico{
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      border: 1px solid #E2E8F0;
-      background: #F2F5FB;
-      display:grid;
-      place-items:center;
-      overflow:hidden;
-      flex: 0 0 auto;
+      width:42px; height:42px; border-radius:10px;
+      border:1px solid #E2E8F0; background:#F2F5FB;
+      display:grid; place-items:center; overflow:hidden; flex: 0 0 auto;
     }
-    .tool-ico img{
-      width: 26px;
-      height: 26px;
-      object-fit: contain;
-      display:block;
-    }
-    .tool-ico .fallback{
-      font-weight: 900;
-      color: #243B7A;
-      font-size: 13px;
-    }
+    .tool-ico img{ width:26px; height:26px; object-fit:contain; display:block; }
+    .tool-ico .fallback{ font-weight:900; color:#243B7A; font-size:13px; }
 
     .tool-txt{ min-width:0; }
-    .tool-name{
-      font-weight: 800;
-      font-size: 14px;
-      line-height: 1.15;
-      margin: 0;
-    }
-    .tool-desc{
-      margin: 3px 0 0;
-      font-size: 12.5px;
-      color: var(--muted);
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
-    }
-
-    /* Badges / grupos */
-    .tool-meta{
-      margin-top: 6px;
-      display:flex;
-      gap: 6px;
-      flex-wrap:wrap;
-    }
+    .tool-name{ font-weight:900; font-size:14px; margin:0; line-height:1.15; }
+    .tool-desc{ margin:3px 0 0; font-size:12.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .tool-meta{ margin-top:6px; display:flex; gap:6px; flex-wrap:wrap; }
     .tag{
-      font-size: 11px;
-      font-weight: 700;
-      border: 1px solid #E4E9F3;
-      background: #F7F9FD;
-      color: #334155;
-      padding: 3px 8px;
-      border-radius: 999px;
+      font-size:11px; font-weight:800;
+      border:1px solid #E4E9F3; background:#F7F9FD; color:#334155;
+      padding:3px 8px; border-radius:999px;
     }
-    .tag.red{
-      border-color: rgba(185,28,28,.25);
-      background: rgba(185,28,28,.08);
-      color: var(--danger);
-    }
+    .tag.red{ border-color: rgba(185,28,28,.25); background: rgba(185,28,28,.08); color: var(--danger); }
 
-    /* ===== Sidebar: estilo “lista relacionada” ===== */
+    /* ===== Página de información (protocolos) ===== */
+    .page-title{ font-size:16px; font-weight:950; margin:0; }
+    .page-sub{ margin:6px 0 0; color:var(--muted); font-size:12.8px; line-height:1.35; }
+    .info-grid{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap:10px;
+    }
+    .info-box{
+      border:1px solid #E6EAF2;
+      border-radius:10px;
+      padding:12px;
+      background:#fff;
+    }
+    .info-box h3{ margin:0; font-size:13.5px; font-weight:950; }
+    .info-box p{ margin:6px 0 0; color:var(--muted); font-size:12.6px; line-height:1.35; }
+    .info-box ul{ margin:8px 0 0 18px; color:var(--text); font-size:12.6px; line-height:1.35; }
+    .info-actions{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid #E4E9F3; background:#fff; color:var(--text);
+      text-decoration:none; font-weight:800; font-size:12px;
+      padding:7px 10px; border-radius:999px;
+    }
+    .btn:hover{ border-color:#CAD3E3; }
+    .btn.red{ border-color: rgba(185,28,28,.25); background: rgba(185,28,28,.06); color: var(--danger); }
+
+    /* ===== Sidebar ===== */
     .cta{
-      width: 100%;
-      background: #0B0B0B;
-      color: #fff;
-      border: 0;
-      border-radius: 6px;
-      padding: 12px 14px;
-      font-weight: 800;
-      cursor:pointer;
-      margin-bottom: 12px;
+      width:100%;
+      background:#0B0B0B; color:#fff;
+      border:0; border-radius:6px; padding:12px 14px;
+      font-weight:900; cursor:pointer; margin-bottom:12px;
     }
     .cta:hover{ opacity:.92; }
 
-    .feed{
-      display:grid;
-      gap: 10px;
-    }
-
+    .feed{ display:grid; gap:10px; }
     .feed-item{
-      border: 1px solid #E6EAF2;
-      border-radius: 10px;
-      padding: 10px;
-      background:#fff;
+      border:1px solid #E6EAF2; border-radius:10px; padding:10px; background:#fff;
     }
-    .feed-top{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    .feed-title{
-      font-weight: 850;
-      font-size: 13px;
-      margin: 0;
-      line-height: 1.2;
-    }
-    .feed-date{
-      font-size: 12px;
-      color: #8A94A6;
-      white-space:nowrap;
-    }
-    .feed-text{
-      margin: 6px 0 0;
-      font-size: 12.5px;
-      color: var(--muted);
-      line-height: 1.35;
-    }
-    .feed-actions{
-      margin-top: 8px;
-      display:flex;
-      gap: 8px;
-      flex-wrap:wrap;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      border: 1px solid #E4E9F3;
-      background:#fff;
-      color: var(--text);
-      text-decoration:none;
-      font-weight: 700;
-      font-size: 12px;
-      padding: 7px 10px;
-      border-radius: 999px;
-    }
-    .btn:hover{ border-color:#CAD3E3; }
-    .btn.red{
-      border-color: rgba(185,28,28,.25);
-      background: rgba(185,28,28,.06);
-      color: var(--danger);
-    }
+    .feed-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+    .feed-title{ font-weight:950; font-size:13px; margin:0; line-height:1.2; }
+    .feed-date{ font-size:12px; color:#8A94A6; white-space:nowrap; }
+    .feed-text{ margin:6px 0 0; font-size:12.5px; color:var(--muted); line-height:1.35; }
+    .feed-actions{ margin-top:8px; display:flex; gap:8px; flex-wrap:wrap; }
 
-    .muted-note{
-      margin-top: 10px;
-      color: #8A94A6;
-      font-size: 12px;
-    }
+    .muted-note{ margin-top:10px; color:#8A94A6; font-size:12px; }
+    .hide{ display:none !important; }
   </style>
 </head>
 
@@ -347,7 +197,6 @@
   <!-- Header blanco -->
   <header class="topbar">
     <div class="topbar-inner">
-      <!-- Búsqueda global (estética SF) -->
       <div class="global-search" aria-label="Búsqueda global">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
@@ -356,57 +205,71 @@
         <input type="search" placeholder="Search…" />
       </div>
 
-      <!-- Logo centrado -->
       <div class="logo">
+        <!-- Sube tu logo a assets/brand/hrmotor-logo.png o cambia la ruta -->
         <img src="assets/brand/hrmotor-logo.png" alt="HRmotor" />
       </div>
 
-      <!-- Usuario derecha -->
       <div class="userbox">
-        <div class="avatar" title="Usuario">JA</div>
-        <div>josealberto.pin</div>
+        <div class="avatar" id="userInitials">JA</div>
+        <div id="userName">josealberto.pin</div>
         <div class="caret" aria-hidden="true"></div>
       </div>
     </div>
   </header>
 
-  <!-- Barra azul marino -->
+  <!-- Barra azul (tabs internos) -->
   <nav class="navbar" aria-label="Navegación">
     <div class="navbar-inner">
-      <a class="nav-item" href="#" onclick="return false;">
-        <!-- home icon -->
+      <a class="nav-item active" data-view="tools" href="#" onclick="return false;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z"
                 stroke="white" stroke-width="2" stroke-linejoin="round"/>
         </svg>
       </a>
-      <a class="nav-item" href="#" onclick="return false;">Leads</a>
-      <a class="nav-item" href="#" onclick="return false;">Vehículos</a>
-      <a class="nav-item" href="#" onclick="return false;">Tasación</a>
-      <a class="nav-item" href="#" onclick="return false;">Casos</a>
-      <a class="nav-item" href="#" onclick="return false;">Informes</a>
-      <a class="nav-item" href="#" onclick="return false;">Tareas Departamento Informático</a>
+
+      <a class="nav-item" data-page="leads" href="#" onclick="return false;">Leads</a>
+      <a class="nav-item" data-page="vehiculos" href="#" onclick="return false;">Vehículos</a>
+      <a class="nav-item" data-page="tasacion" href="#" onclick="return false;">Tasación</a>
+      <a class="nav-item" data-page="casos" href="#" onclick="return false;">Casos</a>
+      <a class="nav-item" data-page="informes" href="#" onclick="return false;">Informes</a>
+      <a class="nav-item" data-page="it" href="#" onclick="return false;">Tareas Departamento Informático</a>
     </div>
   </nav>
 
   <!-- Layout -->
   <main class="wrap">
-
-    <!-- Columna izquierda: Herramientas -->
-    <section class="card" aria-label="Herramientas">
-      <div class="card-h">
-        <div class="title">Herramientas</div>
-        <div style="color:var(--muted); font-size:12px; font-weight:700;">Accesos directos</div>
-      </div>
-      <div class="card-b">
-        <div id="tools" class="tools-grid"></div>
-        <div class="muted-note">
-          Nota: los accesos se abren en una nueva pestaña para evitar bloqueos por iframes (SharePoint/SSO).
+    <!-- Columna izquierda: cambia entre Herramientas y Página -->
+    <div>
+      <!-- Vista: Herramientas -->
+      <section id="toolsCard" class="card" aria-label="Herramientas">
+        <div class="card-h">
+          <div class="title">Herramientas</div>
+          <div style="color:var(--muted); font-size:12px; font-weight:800;">Accesos directos</div>
         </div>
-      </div>
-    </section>
+        <div class="card-b">
+          <div id="tools" class="tools-grid"></div>
+          <div class="muted-note">
+            Nota: los accesos se abren en una nueva pestaña para evitar bloqueos por iframes (SharePoint/SSO).
+          </div>
+        </div>
+      </section>
 
-    <!-- Columna derecha: Comunicados + Noticias -->
+      <!-- Vista: Página de información (protocolos/guías) -->
+      <section id="pageCard" class="card hide" aria-label="Información">
+        <div class="card-h">
+          <div class="title" id="pageHeader">Información</div>
+          <div style="color:var(--muted); font-size:12px; font-weight:800;" id="pageMeta">—</div>
+        </div>
+        <div class="card-b">
+          <p class="page-title" id="pageTitle">—</p>
+          <p class="page-sub" id="pageIntro">—</p>
+          <div id="pageContent" class="info-grid"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Columna derecha: siempre visible -->
     <aside>
       <button class="cta" type="button" onclick="alert('Acción a definir: aquí podrías enlazar a Salesforce/crear tarea');">
         Crear tarea
@@ -415,7 +278,7 @@
       <section class="card" aria-label="Comunicados">
         <div class="card-h">
           <div class="title">Comunicados</div>
-          <div id="commCount" style="color:var(--muted); font-size:12px; font-weight:700;">—</div>
+          <div id="commCount" style="color:var(--muted); font-size:12px; font-weight:800;">—</div>
         </div>
         <div class="card-b">
           <div id="comunicados" class="feed"></div>
@@ -427,25 +290,23 @@
       <section class="card" aria-label="Noticias">
         <div class="card-h">
           <div class="title">Noticias</div>
-          <div id="newsCount" style="color:var(--muted); font-size:12px; font-weight:700;">—</div>
+          <div id="newsCount" style="color:var(--muted); font-size:12px; font-weight:800;">—</div>
         </div>
         <div class="card-b">
           <div id="noticias" class="feed"></div>
         </div>
       </section>
     </aside>
-
   </main>
 
-  <!-- Importante: tu content.js debe definir window.TOOLS / window.COMUNICADOS / window.NOTICIAS -->
+  <!-- IMPORTANTÍSIMO: en content.js usa window.TOOLS / window.COMUNICADOS / window.NOTICIAS / window.PAGES -->
   <script src="content.js?v=1"></script>
 
   <script>
-    // Fallback icon (si aún no has subido iconos)
     const FALLBACK = (name) => (name || 'H').trim().slice(0,2).toUpperCase();
+    const safe = (v) => (v ?? '').toString();
 
-    function safe(v){ return (v ?? '').toString(); }
-
+    // ===== Render Herramientas =====
     function renderTools(){
       const root = document.getElementById('tools');
       root.innerHTML = '';
@@ -478,7 +339,6 @@
           </div>
         `;
 
-        // Si el icono no existe, usa fallback
         const img = a.querySelector('img');
         if(img){
           img.addEventListener('error', () => {
@@ -492,6 +352,7 @@
       });
     }
 
+    // ===== Render Comunicados / Noticias =====
     function renderFeed(list, containerId, countId){
       const el = document.getElementById(containerId);
       const countEl = document.getElementById(countId);
@@ -523,15 +384,95 @@
             ${image ? `<a class="btn" href="${image}" target="_blank" rel="noopener">Ver imagen</a>` : ''}
           </div>
         `;
-
         el.appendChild(div);
       });
     }
 
-    // Init
+    // ===== Tabs internos: Tools vs Páginas =====
+    function setActiveNav(el){
+      document.querySelectorAll('.nav-item').forEach(a => a.classList.remove('active'));
+      if(el) el.classList.add('active');
+    }
+
+    function showTools(){
+      document.getElementById('toolsCard').classList.remove('hide');
+      document.getElementById('pageCard').classList.add('hide');
+    }
+
+    function showPage(pageKey){
+      const pages = (window.PAGES || {});
+      const page = pages[pageKey];
+
+      document.getElementById('toolsCard').classList.add('hide');
+      document.getElementById('pageCard').classList.remove('hide');
+
+      const header = document.getElementById('pageHeader');
+      const meta = document.getElementById('pageMeta');
+      const title = document.getElementById('pageTitle');
+      const intro = document.getElementById('pageIntro');
+      const content = document.getElementById('pageContent');
+
+      if(!page){
+        header.textContent = 'Información';
+        meta.textContent = pageKey;
+        title.textContent = 'Contenido no configurado';
+        intro.textContent = 'Define esta pestaña en content.js dentro de window.PAGES.';
+        content.innerHTML = `
+          <div class="info-box">
+            <h3>Cómo activarlo</h3>
+            <p>Crea <b>window.PAGES["${pageKey}"]</b> con title/intro/blocks.</p>
+            <div class="info-actions">
+              <a class="btn" href="#" onclick="return false;">OK</a>
+            </div>
+          </div>`;
+        return;
+      }
+
+      header.textContent = page.navLabel || page.title || 'Información';
+      meta.textContent = page.updated ? `Actualizado: ${page.updated}` : '—';
+      title.textContent = page.title || '—';
+      intro.textContent = page.intro || '';
+
+      const blocks = page.blocks || [];
+      content.innerHTML = blocks.map(b => {
+        const bullets = (b.bullets || []).map(x => `<li>${x}</li>`).join('');
+        const links = (b.links || []).map(l => `<a class="btn" target="_blank" rel="noopener" href="${l.url}">${l.label}</a>`).join('');
+        const contact = b.contact ? `<a class="btn red" href="${b.contactUrl || '#'}" target="_blank" rel="noopener">${b.contact}</a>` : '';
+        return `
+          <div class="info-box">
+            <h3>${b.title || ''}</h3>
+            ${b.text ? `<p>${b.text}</p>` : ''}
+            ${bullets ? `<ul>${bullets}</ul>` : ''}
+            ${(links || contact) ? `<div class="info-actions">${links}${contact}</div>` : ''}
+          </div>`;
+      }).join('');
+    }
+
+    // ===== Init + listeners =====
+    function initNav(){
+      // Home
+      const home = document.querySelector('.nav-item[data-view="tools"]');
+      home?.addEventListener('click', (e) => {
+        e.preventDefault();
+        setActiveNav(home);
+        showTools();
+      });
+
+      // Páginas
+      document.querySelectorAll('.nav-item[data-page]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          setActiveNav(a);
+          showPage(a.dataset.page);
+        });
+      });
+    }
+
+    // Init render
     renderTools();
     renderFeed(window.COMUNICADOS || [], 'comunicados', 'commCount');
     renderFeed(window.NOTICIAS || [], 'noticias', 'newsCount');
+    initNav();
   </script>
 </body>
 </html>
