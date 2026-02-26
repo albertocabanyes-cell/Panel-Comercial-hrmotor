@@ -7,43 +7,24 @@
   <title>Panel Comercial</title>
 
   <style>
-    /* =========
-      Apple-ish, limpio, “glass”, navy metalizado + rojo oscuro
-      (sin dependencias externas, apto para iframe en Salesforce)
-    ========= */
-
     :root{
-      /* Navy metalizado futurista */
       --navy-950:#060B18;
       --navy-900:#0A1230;
       --navy-800:#0F1C3F;
-      --navy-700:#142453;
 
-      /* Rojo elegante oscuro */
       --red-700:#7A0F1B;
       --red-600:#9B1220;
 
-      /* Neutros */
-      --white: #ffffff;
-      --ink: #0B1020;
-      --muted: rgba(255,255,255,.72);
-      --muted-ink: rgba(11,16,32,.64);
-
-      /* Glass */
-      --glass: rgba(255,255,255,.10);
+      --glass-1: rgba(255,255,255,.11);
       --glass-2: rgba(255,255,255,.08);
       --glass-3: rgba(255,255,255,.06);
       --line: rgba(255,255,255,.14);
-      --line-2: rgba(255,255,255,.10);
 
       --shadow: 0 22px 60px rgba(0,0,0,.38);
       --shadow-soft: 0 14px 38px rgba(0,0,0,.28);
 
       --radius-xl: 24px;
       --radius-lg: 18px;
-      --radius-md: 14px;
-
-      --focus: rgba(46,107,255,.55);
 
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -64,7 +45,6 @@
       overflow-x:hidden;
     }
 
-    /* Sutil “metal sheen” */
     body::before{
       content:"";
       position:fixed;
@@ -81,10 +61,7 @@
           transparent 100%);
       mix-blend-mode: overlay;
       opacity:.55;
-      filter: blur(0.2px);
     }
-
-    a{ color:inherit; }
 
     .page{
       width: min(1200px, calc(100% - 32px));
@@ -120,7 +97,6 @@
       place-items:center;
       flex: 0 0 auto;
     }
-    .logoMark svg{ opacity:.92; }
     .title h1{
       margin:0;
       font-size: 18px;
@@ -142,14 +118,13 @@
       justify-content:flex-end;
       flex-wrap: wrap;
     }
-
     .pill{
       display:inline-flex;
       align-items:center;
       gap:8px;
       padding: 9px 12px;
       border-radius: 999px;
-      border: 1px solid var(--line-2);
+      border: 1px solid rgba(255,255,255,.10);
       background: var(--glass-3);
       backdrop-filter: blur(10px);
       box-shadow: 0 10px 28px rgba(0,0,0,.20);
@@ -171,7 +146,7 @@
     /* Layout */
     .layout{
       display:grid;
-      grid-template-columns: 1.65fr 1fr;
+      grid-template-columns: 1.8fr 1fr;
       gap: 14px;
       align-items:start;
     }
@@ -181,11 +156,11 @@
       .headerRight{ justify-content:flex-start; }
     }
 
-    /* Glass sections */
+    /* Cards */
     .card{
       border-radius: var(--radius-xl);
       border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.07));
+      background: linear-gradient(180deg, var(--glass-1), var(--glass-2));
       box-shadow: var(--shadow);
       backdrop-filter: blur(12px);
       overflow:hidden;
@@ -193,10 +168,6 @@
     .cardInner{ padding: 14px; }
 
     .cardHead{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
       padding: 14px 14px 10px;
       border-bottom: 1px solid rgba(255,255,255,.10);
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
@@ -209,43 +180,22 @@
       text-transform: uppercase;
       color: rgba(255,255,255,.80);
     }
-    .cardHead small{
-      color: rgba(255,255,255,.62);
-      font-size: 12px;
-    }
 
-    /* Tools: prioridad visual */
-    .toolsTopbar{
+    /* Tools header row (SIN buscador) */
+    .toolsHeadRow{
       display:flex;
-      align-items:center;
+      align-items:flex-end;
       justify-content:space-between;
       gap: 10px;
       flex-wrap: wrap;
     }
-    .search{
-      width: min(420px, 100%);
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(6,11,24,.40);
-      backdrop-filter: blur(10px);
+    .toolsHint{
+      margin-top: 6px;
+      font-size: 12.5px;
+      color: rgba(255,255,255,.66);
     }
-    .search input{
-      width:100%;
-      background: transparent;
-      border:0;
-      outline:0;
-      color: rgba(255,255,255,.92);
-      font-size: 13px;
-    }
-    .search input::placeholder{ color: rgba(255,255,255,.55); }
-    .search:focus-within{
-      border-color: rgba(72,130,255,.45);
-      box-shadow: 0 0 0 4px rgba(72,130,255,.12);
-    }
+
+    /* Chips (filtros visuales) */
     .chipRow{
       display:flex;
       gap:8px;
@@ -271,7 +221,14 @@
       background: rgba(155,18,32,.14);
     }
 
-    /* Tool groups + grid */
+    /* Tool tiles */
+    .pinnedRow{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
     .toolGroup{ margin-top: 12px; }
     .toolGroupTitle{
       display:flex;
@@ -314,11 +271,10 @@
 
     .toolGrid{
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
     }
 
-    /* Tool tile “Apple-like” */
     .tool{
       text-decoration:none;
       color:inherit;
@@ -338,35 +294,18 @@
       position: relative;
       overflow:hidden;
     }
-
-    .tool::after{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      background: linear-gradient(120deg, transparent, rgba(72,130,255,.22), transparent);
-      transform: translateX(-60%);
-      opacity: 0;
-      transition: opacity .12s ease, transform .35s ease;
-      pointer-events:none;
-    }
-
     .tool:hover{
       transform: translateY(-2px);
       border-color: rgba(72,130,255,.26);
       box-shadow: 0 20px 46px rgba(0,0,0,.28);
     }
-    .tool:hover::after{
-      opacity: 1;
-      transform: translateX(60%);
-    }
 
     .iconBox{
-      width: 46px;
-      height: 46px;
-      border-radius: 16px;
+      width: 50px;
+      height: 50px;
+      border-radius: 18px;
       border: 1px solid rgba(255,255,255,.16);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.06));
+      background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.06));
       box-shadow: 0 10px 22px rgba(0,0,0,.22);
       display:grid;
       place-items:center;
@@ -374,8 +313,8 @@
       flex: 0 0 auto;
     }
     .iconBox img{
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       object-fit: contain;
       display:block;
       filter: drop-shadow(0 6px 12px rgba(0,0,0,.18));
@@ -384,14 +323,14 @@
     .toolText{ min-width:0; }
     .toolName{
       margin: 0;
-      font-size: 14px;
+      font-size: 14.5px;
       font-weight: 820;
       line-height: 1.15;
       letter-spacing: .1px;
     }
     .toolDesc{
-      margin: 5px 0 0;
-      font-size: 12.5px;
+      margin: 6px 0 0;
+      font-size: 12.6px;
       color: rgba(255,255,255,.68);
       line-height: 1.3;
       overflow:hidden;
@@ -399,7 +338,6 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
     }
-
     .toolMeta{
       margin-top: 10px;
       display:flex;
@@ -428,31 +366,8 @@
       background: rgba(155,18,32,.14);
     }
 
-    /* Pinned row (herramientas prioritarias) */
-    .pinnedRow{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 12px;
-      margin-top: 12px;
-    }
-    .toolPinned{
-      padding: 14px;
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(255,255,255,.18);
-      background:
-        radial-gradient(28px 28px at 20% 18%, rgba(72,130,255,.34), transparent 62%),
-        radial-gradient(30px 30px at 76% 22%, rgba(155,18,32,.24), transparent 62%),
-        linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.07));
-    }
-    .toolPinned .iconBox{ width:52px; height:52px; border-radius:18px; }
-    .toolPinned .iconBox img{ width:32px; height:32px; }
-    .toolPinned .toolName{ font-size: 15px; }
-
-    /* Feed (comunicados/noticias) */
-    .feed{
-      display:grid;
-      gap: 10px;
-    }
+    /* Feed */
+    .feed{ display:grid; gap: 10px; }
     .item{
       border-radius: var(--radius-xl);
       border: 1px solid rgba(255,255,255,.12);
@@ -485,7 +400,6 @@
       color: rgba(255,255,255,.74);
       line-height: 1.35;
     }
-
     .actions{
       display:flex;
       flex-wrap: wrap;
@@ -503,7 +417,7 @@
       text-decoration:none;
       color: rgba(255,255,255,.88);
       font-size: 12px;
-      transition: transform .10s ease, border-color .10s ease, background .10s ease;
+      transition: transform .10s ease, border-color .10s ease;
       backdrop-filter: blur(10px);
     }
     .btn:hover{ transform: translateY(-1px); border-color: rgba(72,130,255,.28); }
@@ -529,7 +443,6 @@
     .preview img{ width:100%; display:block; }
     .preview embed{ width:100%; height: 520px; border:0; display:block; background: rgba(255,255,255,.06); }
 
-    /* Footer */
     .footer{
       margin-top: 14px;
       padding: 0 14px 12px;
@@ -537,10 +450,8 @@
       font-size: 12px;
     }
 
-    /* Motion preferences */
     @media (prefers-reduced-motion: reduce){
-      *{ transition:none !important; animation:none !important; scroll-behavior:auto !important; }
-      .tool::after{ display:none; }
+      *{ transition:none !important; animation:none !important; }
     }
   </style>
 </head>
@@ -551,7 +462,6 @@
     <div class="header">
       <div class="brand">
         <div class="logoMark" aria-hidden="true">
-          <!-- simple mark -->
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             <path d="M7 12.2l3 3L17.5 7.7" stroke="white" stroke-opacity=".9" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -559,32 +469,26 @@
 
         <div class="title">
           <h1>Panel Comercial</h1>
-          <p>Accesos directos y comunicados internos · Diseño tipo “launcher” (rápido, claro y actualizable)</p>
+          <p>Accesos directos y comunicados internos · Interfaz tipo launcher (visual, rápida y actualizable)</p>
         </div>
       </div>
 
       <div class="headerRight">
-        <span class="pill"><span class="dot"></span> Herramientas prioritarias arriba</span>
-        <span class="pill"><span class="dot red"></span> Avisos / urgencias en rojo</span>
+        <span class="pill"><span class="dot"></span> Favoritos arriba</span>
+        <span class="pill"><span class="dot red"></span> Avisos/urgencias en rojo</span>
       </div>
     </div>
 
     <div class="layout">
 
-      <!-- ========== Tools (prioridad) ========== -->
+      <!-- Herramientas -->
       <section class="card" aria-label="Herramientas">
         <div class="cardHead">
-          <div class="toolsTopbar">
-            <h2>Herramientas</h2>
-
-            <div class="search" title="Buscar por nombre, descripción o grupo">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="white" stroke-opacity=".75" stroke-width="2"/>
-                <path d="M16.5 16.5 21 21" stroke="white" stroke-opacity=".75" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              <input id="toolSearch" type="search" placeholder="Buscar herramienta…" autocomplete="off" />
+          <div class="toolsHeadRow">
+            <div>
+              <h2>Herramientas</h2>
+              <div class="toolsHint">Haz clic para abrir (se abre en nueva pestaña). Filtra por categoría si lo necesitas.</div>
             </div>
-
             <div class="chipRow" id="groupChips"></div>
           </div>
         </div>
@@ -595,19 +499,19 @@
         </div>
       </section>
 
-      <!-- ========== Feed ========== -->
+      <!-- Comunicados / Noticias -->
       <aside class="card" aria-label="Comunicados y noticias">
-        <div class="cardHead">
+        <div class="cardHead" style="display:flex;justify-content:space-between;align-items:center;">
           <h2>Comunicados</h2>
-          <small id="commCount">—</small>
+          <small id="commCount" style="color:rgba(255,255,255,.62);font-size:12px;">—</small>
         </div>
         <div class="cardInner">
           <div id="comunicados" class="feed"></div>
         </div>
 
-        <div class="cardHead">
+        <div class="cardHead" style="display:flex;justify-content:space-between;align-items:center;">
           <h2>Noticias</h2>
-          <small id="newsCount">—</small>
+          <small id="newsCount" style="color:rgba(255,255,255,.62);font-size:12px;">—</small>
         </div>
         <div class="cardInner">
           <div id="noticias" class="feed"></div>
@@ -621,11 +525,9 @@
     </div>
   </div>
 
-  <!-- Tus datos -->
   <script src="content.js"></script>
 
   <script>
-    // ========= Fallback icon (evita iconos rotos) =========
     const FALLBACK_ICON = `data:image/svg+xml;utf8,
       <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'>
         <defs>
@@ -642,16 +544,15 @@
         <path d='M22 40h16' stroke='white' stroke-opacity='.65' stroke-width='3' stroke-linecap='round'/>
       </svg>`;
 
-    // ========= Utilidades =========
     const safe = (v) => (v ?? '').toString();
     const norm = (s) => safe(s).trim().toLowerCase();
     const byName = (a,b) => safe(a).localeCompare(safe(b), 'es', { sensitivity:'base' });
 
-    // ========= Render Tools =========
     const toolsRoot = document.getElementById('tools');
     const pinnedRoot = document.getElementById('pinnedTools');
-    const searchEl = document.getElementById('toolSearch');
     const chipsEl = document.getElementById('groupChips');
+
+    let activeGroup = 'Todos';
 
     function groupTools(list){
       return list.reduce((acc, t) => {
@@ -662,15 +563,14 @@
     }
 
     function pickGroupBadge(groupName){
-      // Azul por defecto, rojo si huele a "urgente/rrhh/legal" (ajustable)
       const g = norm(groupName);
       const red = ['urg', 'rrhh', 'legal', 'incid', 'prior'].some(k => g.includes(k));
       return red ? 'groupBadge red' : 'groupBadge';
     }
 
-    function toolCard(t, pinned=false){
+    function toolCard(t){
       const a = document.createElement('a');
-      a.className = pinned ? 'tool toolPinned' : 'tool';
+      a.className = 'tool';
       a.href = t.url || '#';
       a.target = '_blank';
       a.rel = 'noopener';
@@ -678,8 +578,8 @@
       const icon = t.icon || FALLBACK_ICON;
       const name = safe(t.name || 'Herramienta');
       const desc = safe(t.desc || '');
-      const badge = safe(t.badge || '');   // opcional
-      const status = safe(t.status || ''); // opcional (ej: "Nuevo", "Mantenimiento")
+      const badge = safe(t.badge || '');
+      const status = safe(t.status || '');
 
       a.innerHTML = `
         <div class="iconBox">
@@ -702,7 +602,16 @@
       return a;
     }
 
-    let activeGroup = 'Todos';
+    function pinnedCard(t){
+      const a = toolCard(t);
+      a.style.padding = '14px';
+      a.querySelector('.iconBox').style.width = '56px';
+      a.querySelector('.iconBox').style.height = '56px';
+      a.querySelector('img').style.width = '36px';
+      a.querySelector('img').style.height = '36px';
+      a.querySelector('.toolName').style.fontSize = '15.5px';
+      return a;
+    }
 
     function buildChips(groups){
       chipsEl.innerHTML = '';
@@ -714,7 +623,7 @@
         c.addEventListener('click', () => {
           activeGroup = label;
           buildChips(groups);
-          renderTools(searchEl?.value || '');
+          renderTools();
         });
         return c;
       };
@@ -723,42 +632,26 @@
       groups.forEach(g => chipsEl.appendChild(mk(g)));
     }
 
-    function renderTools(query=''){
-      const q = norm(query);
+    function renderTools(){
+      const all = (window.TOOLS || []).slice();
 
-      // 1) filtro base
-      let list = (window.TOOLS || []).slice();
+      const list = (activeGroup === 'Todos')
+        ? all
+        : all.filter(t => safe(t.group || 'General').trim() === activeGroup);
 
-      // 2) filtro por grupo (chips)
-      if (activeGroup !== 'Todos'){
-        list = list.filter(t => safe(t.group || 'General').trim() === activeGroup);
-      }
-
-      // 3) filtro por búsqueda
-      if (q){
-        list = list.filter(t => {
-          const hay = [
-            safe(t.name), safe(t.desc), safe(t.group),
-            safe(t.badge), safe(t.status)
-          ].join(' ').toLowerCase();
-          return hay.includes(q);
-        });
-      }
-
-      // 4) separar pinned
       const pinned = list.filter(t => !!t.pinned);
       const normal = list.filter(t => !t.pinned);
 
-      // Render pinned
+      // pinned
       pinnedRoot.innerHTML = '';
       if (pinned.length){
         pinnedRoot.style.display = 'grid';
-        pinned.sort((a,b) => byName(a.name, b.name)).forEach(t => pinnedRoot.appendChild(toolCard(t, true)));
+        pinned.sort((a,b) => byName(a.name, b.name)).forEach(t => pinnedRoot.appendChild(pinnedCard(t)));
       } else {
         pinnedRoot.style.display = 'none';
       }
 
-      // Render grouped
+      // grouped
       toolsRoot.innerHTML = '';
       const grouped = groupTools(normal);
 
@@ -779,16 +672,13 @@
 
         const grid = document.createElement('div');
         grid.className = 'toolGrid';
-        grouped[groupName]
-          .sort((a,b) => byName(a.name, b.name))
-          .forEach(t => grid.appendChild(toolCard(t, false)));
-
+        grouped[groupName].sort((a,b) => byName(a.name, b.name)).forEach(t => grid.appendChild(toolCard(t)));
         wrap.appendChild(grid);
+
         toolsRoot.appendChild(wrap);
       });
     }
 
-    // ========= Render Feed (Comunicados / Noticias) =========
     function renderFeed(list, containerId, countId){
       const el = document.getElementById(containerId);
       const countEl = document.getElementById(countId);
@@ -832,7 +722,6 @@
           ` : ''}
         `;
 
-        // fallback para imágenes rotas en preview
         const imgs = div.querySelectorAll('img');
         imgs.forEach(img => img.addEventListener('error', () => { img.style.display='none'; }));
 
@@ -840,17 +729,14 @@
       });
     }
 
-    // ========= Init =========
     (function init(){
       const tools = (window.TOOLS || []);
       const groups = Array.from(new Set(tools.map(t => safe(t.group || 'General').trim()))).sort(byName);
       buildChips(groups);
 
-      renderTools('');
+      renderTools();
       renderFeed(window.COMUNICADOS || [], 'comunicados', 'commCount');
       renderFeed(window.NOTICIAS || [], 'noticias', 'newsCount');
-
-      searchEl?.addEventListener('input', (e) => renderTools(e.target.value));
     })();
   </script>
 </body>
