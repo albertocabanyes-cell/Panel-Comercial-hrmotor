@@ -7,7 +7,6 @@
 
   <style>
     :root{
-      /* Look & feel tipo Salesforce/HRmotor */
       --navy: #0B1D4A;
       --navy-2:#08163A;
       --bg:   #F4F6F9;
@@ -24,101 +23,96 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ===== Banner superior HRmotor (logo grande) ===== */
-.brand-banner{
-  background:#fff;
-  padding: 18px 16px 10px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-.brand-banner img{
-  max-width: 520px;   /* ajusta si lo quieres más grande */
-  width: 100%;
-  height: auto;
-  display:block;
-}
-
     *{ box-sizing:border-box; }
     body{ margin:0; background:var(--bg); color:var(--text); }
 
-    /* ===== Topbar blanca ===== */
+    /* ===== TOPBAR (banner + buscador) ===== */
     .topbar{ background:#fff; border-bottom:1px solid var(--line); }
+
+    .brand-banner{
+      background:#fff;
+      padding: 18px 16px 8px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .brand-banner img{
+      max-width: 560px;       /* tamaño del logo grande */
+      max-height: 120px;      /* evita que “reviente” la pantalla */
+      width: 100%;
+      height: auto;
+      display:block;
+    }
+
     .topbar-inner{
-  max-width: 1280px;
-  margin:0 auto;
-  padding: 10px 16px 14px;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  gap:12px;
-}
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 10px 16px 14px;
+      display:flex;
+      justify-content:center; /* buscador centrado bajo el logo */
+      align-items:center;
+    }
 
     .global-search{
-      display:flex; align-items:center; gap:10px;
-      border:1px solid var(--line); border-radius:6px;
-      padding:10px 12px; background:#fff;
+      width: min(980px, 100%); /* ancho tipo Salesforce */
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid var(--line);
+      border-radius:6px;
+      padding:10px 12px;
+      background:#fff;
     }
-    .global-search svg{ opacity:.7; }
+    .global-search svg{ opacity:.7; flex:0 0 auto; }
     .global-search input{
-      width:100%; border:0; outline:0; font-size:13px; color:var(--text);
+      width:100%;
+      border:0;
+      outline:0;
+      font-size:13px;
+      color:var(--text);
     }
     .global-search input::placeholder{ color:#9AA3B2; }
 
-    .logo{ display:flex; align-items:center; justify-content:center; }
-    .logo img{ height:44px; width:auto; display:block; }
-    .logo .fallbackText{
-      font-weight:900; letter-spacing:.2px; color:var(--text);
-      display:none;
-    }
-
-    .userbox{
-      display:flex; align-items:center; justify-content:flex-end; gap:10px;
-      color:var(--muted); font-size:13px; white-space:nowrap;
-    }
-    .avatar{
-      width:30px; height:30px; border-radius:999px;
-      border:1px solid var(--line); background:#EEF2FF;
-      display:grid; place-items:center; color:#243B7A; font-weight:900; font-size:12px;
-    }
-    .caret{
-      width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #8A94A6;
-      margin-left:2px;
-    }
-
-    @media (max-width: 1000px){
-      .topbar-inner{ grid-template-columns:1fr; }
-      .logo{ justify-content:flex-start; }
-      .userbox{ justify-content:flex-start; }
-    }
-
-    /* ===== Navbar azul (tabs) ===== */
+    /* ===== NAVBAR ===== */
     .navbar{ background:var(--navy); }
     .navbar-inner{
-      max-width: 1280px; margin:0 auto; padding:0 8px;
-      display:flex; align-items:center; gap:6px; overflow:auto;
+      max-width: 1280px;
+      margin:0 auto;
+      padding:0 8px;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      overflow:auto;
     }
     .nav-item{
-      display:flex; align-items:center; gap:8px;
+      display:flex;
+      align-items:center;
+      gap:8px;
       padding:12px 12px;
       color:rgba(255,255,255,.92);
       text-decoration:none;
-      font-size:13px; font-weight:800;
-      border-radius:6px; white-space:nowrap;
+      font-size:13px;
+      font-weight:800;
+      border-radius:6px;
+      white-space:nowrap;
       cursor:pointer;
       user-select:none;
     }
     .nav-item:hover{ background:var(--navy-2); }
     .nav-item.active{ background:rgba(255,255,255,.14); }
-    .nav-item svg{ opacity:.95; }
 
-    /* ===== Layout ===== */
+    /* ===== LAYOUT ===== */
     .wrap{
-      max-width: 1280px; margin:0 auto; padding:16px;
-      display:grid; grid-template-columns: 1.75fr 1fr; gap:14px; align-items:start;
+      max-width: 1280px;
+      margin:0 auto;
+      padding:16px;
+      display:grid;
+      grid-template-columns: 1.75fr 1fr;
+      gap:14px;
+      align-items:start;
     }
     @media (max-width: 1000px){
+      .topbar-inner{ justify-content:stretch; }
       .wrap{ grid-template-columns:1fr; }
     }
 
@@ -132,42 +126,60 @@
     .card-h{
       padding:12px;
       border-bottom:1px solid var(--line);
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
     }
     .card-h .title{ font-size:14px; font-weight:950; letter-spacing:.2px; }
     .card-b{ padding:12px; }
-
     .hide{ display:none !important; }
 
-    /* ===== Botón CTA ===== */
+    /* ===== CTA ===== */
     .cta{
       width:100%;
-      background:#0B0B0B; color:#fff;
-      border:0; border-radius:6px; padding:12px 14px;
-      font-weight:950; cursor:pointer; margin-bottom:12px;
+      background:#0B0B0B;
+      color:#fff;
+      border:0;
+      border-radius:6px;
+      padding:12px 14px;
+      font-weight:950;
+      cursor:pointer;
+      margin-bottom:12px;
     }
     .cta:hover{ opacity:.92; }
 
-    /* ===== Herramientas (Home) ===== */
+    /* ===== TOOLS HOME GRID ===== */
     .tools-grid{
       display:grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap:10px;
     }
     .tool{
-      display:flex; gap:12px; align-items:center;
+      display:flex;
+      gap:12px;
+      align-items:center;
       padding:12px;
       border:1px solid #E6EAF2;
       border-radius:10px;
-      text-decoration:none; color:var(--text); background:#fff;
+      text-decoration:none;
+      color:var(--text);
+      background:#fff;
       transition: transform .08s ease, box-shadow .08s ease, border-color .08s ease;
     }
-    .tool:hover{ transform: translateY(-1px); border-color:#CAD3E3; box-shadow:0 6px 18px rgba(16,24,40,.10); }
-
+    .tool:hover{
+      transform: translateY(-1px);
+      border-color:#CAD3E3;
+      box-shadow:0 6px 18px rgba(16,24,40,.10);
+    }
     .tool-ico{
-      width:42px; height:42px; border-radius:10px;
-      border:1px solid #E2E8F0; background:#F2F5FB;
-      display:grid; place-items:center; overflow:hidden; flex: 0 0 auto;
+      width:42px; height:42px;
+      border-radius:10px;
+      border:1px solid #E2E8F0;
+      background:#F2F5FB;
+      display:grid; place-items:center;
+      overflow:hidden;
+      flex: 0 0 auto;
     }
     .tool-ico img{ width:26px; height:26px; object-fit:contain; display:block; }
     .tool-ico .fallback{ font-weight:950; color:#243B7A; font-size:13px; }
@@ -177,29 +189,56 @@
     .tool-desc{ margin:3px 0 0; font-size:12.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .tool-meta{ margin-top:6px; display:flex; gap:6px; flex-wrap:wrap; }
 
-    /* ===== Tags / Buttons ===== */
+    /* Tags / buttons */
     .tag{
-      font-size:11px; font-weight:900;
-      border:1px solid #E4E9F3; background:#F7F9FD; color:#334155;
-      padding:3px 8px; border-radius:999px;
+      font-size:11px;
+      font-weight:900;
+      border:1px solid #E4E9F3;
+      background:#F7F9FD;
+      color:#334155;
+      padding:3px 8px;
+      border-radius:999px;
     }
-    .tag.red{ border-color: rgba(185,28,28,.25); background: rgba(185,28,28,.08); color: var(--danger); }
+    .tag.red{
+      border-color: rgba(185,28,28,.25);
+      background: rgba(185,28,28,.08);
+      color: var(--danger);
+    }
 
     .btn{
       display:inline-flex; align-items:center; gap:8px;
-      border:1px solid #E4E9F3; background:#fff; color:var(--text);
-      text-decoration:none; font-weight:900; font-size:12px;
-      padding:7px 10px; border-radius:999px;
+      border:1px solid #E4E9F3;
+      background:#fff;
+      color:var(--text);
+      text-decoration:none;
+      font-weight:900;
+      font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
     }
     .btn:hover{ border-color:#CAD3E3; }
-    .btn.red{ border-color: rgba(185,28,28,.25); background: rgba(185,28,28,.06); color: var(--danger); }
-    .btn.primary{ background: var(--navy); border-color: var(--navy); color:#fff; }
-    .btn.primary:hover{ background: var(--navy-2); border-color: var(--navy-2); }
+    .btn.red{
+      border-color: rgba(185,28,28,.25);
+      background: rgba(185,28,28,.06);
+      color: var(--danger);
+    }
+    .btn.primary{
+      background: var(--navy);
+      border-color: var(--navy);
+      color:#fff;
+    }
+    .btn.primary:hover{
+      background: var(--navy-2);
+      border-color: var(--navy-2);
+    }
 
-    /* ===== Sidebar feeds ===== */
+    /* Sidebar feeds */
     .feed{ display:grid; gap:10px; }
     .feed-item{
-      border:1px solid #E6EAF2; border-radius:10px; padding:10px; background:#fff;
+      border:1px solid #E6EAF2;
+      border-radius:10px;
+      padding:10px;
+      background:#fff;
     }
     .feed-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
     .feed-title{ font-weight:950; font-size:13px; margin:0; line-height:1.2; }
@@ -209,7 +248,7 @@
 
     .muted-note{ margin-top:10px; color:#8A94A6; font-size:12px; }
 
-    /* ===== Página interna (cada pestaña) ===== */
+    /* ===== PAGES (tabs) ===== */
     .page-title{ font-size:16px; font-weight:950; margin:0; }
     .page-sub{ margin:6px 0 0; color:var(--muted); font-size:12.8px; line-height:1.35; }
 
@@ -219,7 +258,6 @@
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap:10px;
     }
-
     .info-box{
       border:1px solid #E6EAF2;
       border-radius:10px;
@@ -231,7 +269,7 @@
     .info-box ul{ margin:8px 0 0 18px; color:var(--text); font-size:12.6px; line-height:1.35; }
     .info-actions{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
 
-    /* ===== HERO visual en cada pestaña ===== */
+    /* HERO visual */
     .tool-hero{
       grid-column: 1 / -1;
       display:flex;
@@ -243,7 +281,7 @@
       background: linear-gradient(180deg, #FFFFFF, #F7F9FD);
     }
     .tool-hero-ico{
-      width:239px; height:212px;
+      width:56px; height:56px;
       border-radius:14px;
       border:1px solid #E2E8F0;
       background:#F2F5FB;
@@ -251,7 +289,7 @@
       overflow:hidden;
       flex: 0 0 auto;
     }
-    .tool-hero-ico img{ width:100%; height:100%; object-fit:contain; display:block; }
+    .tool-hero-ico img{ width:34px; height:34px; object-fit:contain; display:block; }
     .tool-hero-ico .fallback{ font-weight:950; color:#243B7A; font-size:14px; }
     .tool-hero-main{ flex:1 1 auto; min-width:0; }
     .tool-hero-title{ margin:0; font-size:15.5px; font-weight:950; line-height:1.15; }
@@ -287,14 +325,13 @@
 </head>
 
 <body>
-  <!-- Topbar -->
   <header class="topbar">
-    <!-- Banner superior con el logo grande -->
-  <div class="brand-banner">
-    <img src="LOGO-HRMOTOR-RGB_SIN-CLAIM-2.png" alt="HRmotor · Vende rápido · Compra fácil">
-  </div>
+    <!-- Banner con HRmotor grande -->
+    <div class="brand-banner">
+      <img src="assets/brand/hrmotor-header.png" alt="HRmotor · Vende rápido · Compra fácil">
+    </div>
 
-  <div class="topbar-inner">
+    <!-- Buscador (sin usuario ni logo pequeño) -->
     <div class="topbar-inner">
       <div class="global-search" aria-label="Búsqueda global">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -303,16 +340,13 @@
         </svg>
         <input type="search" placeholder="Search…" />
       </div>
+    </div>
+  </header>
 
-     
-
-      <!-- SIN nombre visible -->
-     
-
-  <!-- Navbar tabs -->
+  <!-- Navbar -->
   <nav class="navbar" aria-label="Navegación">
     <div class="navbar-inner">
-      <a class="nav-item active" data-view="tools" href="#" onclick="return false;">
+      <a class="nav-item active" data-view="tools" href="#" onclick="return false;" title="Inicio">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z"
                 stroke="white" stroke-width="2" stroke-linejoin="round"/>
@@ -329,11 +363,9 @@
     </div>
   </nav>
 
-  <!-- Layout -->
   <main class="wrap">
-    <!-- Left column -->
     <div>
-      <!-- Home: Herramientas -->
+      <!-- Home -->
       <section id="toolsCard" class="card" aria-label="Herramientas">
         <div class="card-h">
           <div class="title">Herramientas</div>
@@ -347,7 +379,7 @@
         </div>
       </section>
 
-      <!-- Pages: cada pestaña -->
+      <!-- Tabs pages -->
       <section id="pageCard" class="card hide" aria-label="Información">
         <div class="card-h">
           <div class="title" id="pageHeader">Información</div>
@@ -361,7 +393,6 @@
       </section>
     </div>
 
-    <!-- Right column -->
     <aside>
       <button class="cta" type="button" onclick="alert('Acción a definir: enlazar a Salesforce / crear tarea');">
         Crear tarea
@@ -391,26 +422,16 @@
     </aside>
   </main>
 
-  <!-- Carga datos -->
-  <script src="content.js?v=10"></script>
+  <!-- Datos -->
+  <script src="content.js?v=99"></script>
 
   <script>
-    // Helpers
     const safe = (v) => (v ?? '').toString();
     const esc = (s) => safe(s).replace(/[&<>"']/g, m => ({
       '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
     }[m]));
     const FALLBACK = (name) => (name || 'H').trim().slice(0,2).toUpperCase();
 
-    // Logo fallback
-    (function(){
-      const img = document.getElementById('brandLogo');
-      const fb = document.getElementById('brandFallback');
-      if(!img) return;
-      img.addEventListener('error', () => { img.style.display='none'; if(fb) fb.style.display='block'; });
-    })();
-
-    // Render tools grid
     function renderTools(){
       const root = document.getElementById('tools');
       root.innerHTML = '';
@@ -455,7 +476,6 @@
       });
     }
 
-    // Render feeds
     function renderFeed(list, containerId, countId){
       const el = document.getElementById(containerId);
       const countEl = document.getElementById(countId);
@@ -487,12 +507,10 @@
             ${image ? `<a class="btn" href="${esc(image)}" target="_blank" rel="noopener">Ver imagen</a>` : ''}
           </div>
         `;
-
         el.appendChild(div);
       });
     }
 
-    // Tabs logic
     function setActiveNav(el){
       document.querySelectorAll('.nav-item').forEach(a => a.classList.remove('active'));
       if(el) el.classList.add('active');
@@ -521,11 +539,7 @@
         meta.textContent = pageKey;
         title.textContent = 'Contenido no configurado';
         intro.textContent = 'Define esta pestaña en content.js dentro de window.PAGES.';
-        content.innerHTML = `
-          <div class="info-box">
-            <h3>Cómo activarlo</h3>
-            <p>Falta <b>window.PAGES["${esc(pageKey)}"]</b>.</p>
-          </div>`;
+        content.innerHTML = `<div class="info-box"><h3>Falta window.PAGES["${esc(pageKey)}"]</h3></div>`;
         return;
       }
 
@@ -550,16 +564,13 @@
           <div class="tool-hero-ico">
             ${icon ? `<img src="${esc(icon)}" alt="">` : `<div class="fallback">${esc(FALLBACK(page.heroTitle || page.title || page.navLabel))}</div>`}
           </div>
-
           <div class="tool-hero-main">
             <p class="tool-hero-title">${esc(page.heroTitle || page.title || page.navLabel || 'Herramienta')}</p>
             <p class="tool-hero-desc">${description}</p>
-
             <div class="tool-hero-actions">
               ${primaryUrl ? `<a class="btn primary" target="_blank" rel="noopener" href="${esc(primaryUrl)}">${primaryLabel}</a>` : ``}
               ${page.secondaryUrl ? `<a class="btn" target="_blank" rel="noopener" href="${esc(page.secondaryUrl)}">${esc(page.secondaryLabel || 'Abrir enlace')}</a>` : ``}
             </div>
-
             ${badges ? `<div class="badge-row">${badges}</div>` : ``}
           </div>
         </div>
@@ -572,7 +583,6 @@
         const links = (b.links || []).map(l =>
           `<a class="btn" target="_blank" rel="noopener" href="${esc(l.url)}">${esc(l.label)}</a>`
         ).join('');
-
         const contact = b.contact
           ? `<a class="btn red" target="_blank" rel="noopener" href="${esc(b.contactUrl || '#')}">${esc(b.contact)}</a>`
           : '';
@@ -600,7 +610,6 @@
     }
 
     function initNav(){
-      // Home
       const home = document.querySelector('.nav-item[data-view="tools"]');
       home?.addEventListener('click', (e) => {
         e.preventDefault();
@@ -608,7 +617,6 @@
         showTools();
       });
 
-      // Pages
       document.querySelectorAll('.nav-item[data-page]').forEach(a => {
         a.addEventListener('click', (e) => {
           e.preventDefault();
@@ -618,7 +626,6 @@
       });
     }
 
-    // Init render
     renderTools();
     renderFeed(window.COMUNICADOS || [], 'comunicados', 'commCount');
     renderFeed(window.NOTICIAS || [], 'noticias', 'newsCount');
