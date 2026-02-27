@@ -24,6 +24,22 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
+    /* ===== Banner superior HRmotor (logo grande) ===== */
+.brand-banner{
+  background:#fff;
+  padding: 18px 16px 10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.brand-banner img{
+  max-width: 520px;   /* ajusta si lo quieres más grande */
+  width: 100%;
+  height: auto;
+  display:block;
+}
+
     *{ box-sizing:border-box; }
     body{ margin:0; background:var(--bg); color:var(--text); }
 
@@ -268,6 +284,12 @@
 <body>
   <!-- Topbar -->
   <header class="topbar">
+    <!-- Banner superior con el logo grande -->
+  <div class="brand-banner">
+    <img src="assets/brand/hrmotor-header.png" alt="HRmotor · Vende rápido · Compra fácil">
+  </div>
+
+  <div class="topbar-inner">
     <div class="topbar-inner">
       <div class="global-search" aria-label="Búsqueda global">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
